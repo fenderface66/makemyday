@@ -12,6 +12,7 @@ const Login: FunctionComponent<Props> = () => {
         const token = response.getAuthResponse().access_token;
         SecureStorage.set('token', token);
         history.push('/');
+        console.log('test');
     }
 
     return (
@@ -21,6 +22,7 @@ const Login: FunctionComponent<Props> = () => {
             onSuccess={(response: any) => responseGoogle(response)}
             onFailure={(e) => console.error(e)}
             cookiePolicy={'single_host_origin'}
+            scope="https://www.googleapis.com/auth/calendar"
         />
     );
 }
