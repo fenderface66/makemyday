@@ -1,8 +1,8 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useContext} from 'react';
 import styled from 'styled-components';
 
 import {Space} from "./theme";
-import { Calendar } from "./Home";
+import {Calendar} from "./Home";
 
 type CalendarStyleProps = {
   backgroundColor: string;
@@ -30,7 +30,6 @@ const ChooseCalendar: FunctionComponent<Props> = ({
   calendars,
   onSelect
 }) => {
-  console.log(calendars);
   return (
     <CalendarContainer>
       {calendars.map(calendar => (
@@ -43,7 +42,6 @@ const ChooseCalendar: FunctionComponent<Props> = ({
         </CalendarItem>
       )) }
     </CalendarContainer>
-
   )
 }
 export default ChooseCalendar;

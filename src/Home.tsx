@@ -3,6 +3,7 @@ import request from 'superagent'
 import { withRouter, useHistory } from 'react-router';
 import { SecureStorage } from './SecureStorage';
 import ChooseCalendar from "./ChooseCalendar";
+import SelectedCalendar from "./SelectedCalendar";
 
 export type Calendar = {
   id: string;
@@ -19,15 +20,16 @@ const getCalendarsEvents = async () : Promise<Calendar[]> => {
   return response.body.items;
 };
 
-
 const Home: FunctionComponent = () => {
   const history = useHistory();
   const hasToken = !!SecureStorage.get('token');
   if (!hasToken) {
     history.push('/login');
   }
+
   const [calendars, setCalendars] = useState<Calendar[]>([]);
   const [selectedCalendar, setSelectedCalendar] = useState<Calendar | undefined>(undefined);
+
 
   useEffect(() => {
     // Create an scoped async function in the hook
@@ -39,11 +41,12 @@ const Home: FunctionComponent = () => {
 
   return (
     <>
-      {selectedCalendar ? <h1>The selected calendar {selectedCalendar.summary}</h1> : null}
-      <ChooseCalendar
-        onSelect={(selectedCalendar: Calendar) => setSelectedCalendar(selectedCalendar)}
-        calendars={calendars}
-      />
+      {selectedCalendar ? <SelectedCalendar calendarId={selectedCalendar.id} /> : (
+        <ChooseCalendar
+          onSelect={(selectedCalendar: Calendar) => setSelectedCalendar(selectedCalendar)}
+          calendars={calendars}
+        />
+      )}
     </>
   )
 }
