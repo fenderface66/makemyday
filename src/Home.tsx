@@ -11,12 +11,11 @@ export type Calendar = {
   backgroundColor: string;
 }
 
-const getCalendarsEvents = async () : Promise<Calendar[]> => {
-  const url = `https://www.googleapis.com/calendar/v3/users/me/calendarList?key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+const getCalendars = async () : Promise<Calendar[]> => {
+  const url = `https://www.googleapis.com/calendar/v3/users/me/calendarList`
   const response = await request
     .get(url)
     .set('Authorization', `Bearer ${SecureStorage.get('token')}`)
-  console.log(response.body.items);
   return response.body.items;
 };
 
@@ -34,7 +33,7 @@ const Home: FunctionComponent = () => {
   useEffect(() => {
     // Create an scoped async function in the hook
     (async () => {
-      const calendars = await getCalendarsEvents();
+      const calendars = await getCalendars();
       setCalendars(calendars);
     })();
   }, []);
