@@ -11,20 +11,27 @@ export type Calendar = {
   backgroundColor: string;
 }
 
-const getCalendars = async () : Promise<Calendar[]> => {
-  const url = `https://www.googleapis.com/calendar/v3/users/me/calendarList`
-  const response = await request
-    .get(url)
-    .set('Authorization', `Bearer ${SecureStorage.get('token')}`)
-  return response.body.items;
-};
-
 const Home: FunctionComponent = () => {
   const history = useHistory();
   const hasToken = !!SecureStorage.get('token');
   if (!hasToken) {
     history.push('/login');
   }
+
+  const getCalendars = async () => {
+    const url = `https://www.googleapis.com/calendar/v3/users/me/calendarList`
+    try {
+      const response = await request
+        .get(url)
+        .set('Authorization', `Bearer ${SecureStorage.get('token')}`)
+      return response.body.items;
+    } catch(e) {
+      if (e.status === 401) {
+        history.push('/login');
+      }
+      throw e;
+    }
+  };
 
   const [calendars, setCalendars] = useState<Calendar[]>([]);
   const [selectedCalendar, setSelectedCalendar] = useState<Calendar | undefined>(undefined);

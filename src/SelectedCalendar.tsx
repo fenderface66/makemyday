@@ -15,10 +15,7 @@ const getCalendarEvents = async (calendarId: string) : Promise<Calendar[]> => {
   const endOfDay = DateTime.fromObject({ hour: 23, minute: 59}).toISO({
     suppressMilliseconds: true,
   });
-  console.log(startOfDay);
-  console.log(endOfDay);
   const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`;
-
   const response = await request
     .get(url)
     .query({
@@ -36,7 +33,6 @@ const SelectedCalendar: FunctionComponent<Props> = ({
     // Create an scoped async function in the hook
     (async () => {
       const events = await getCalendarEvents(calendarId);
-      console.log(events);
     })();
   }, []);
   return (
