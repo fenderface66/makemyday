@@ -3,6 +3,7 @@ import request from "superagent";
 import {SecureStorage} from "./SecureStorage";
 import {Calendar} from "./Home";
 import { DateTime } from 'luxon';
+import ChooseDayPreferences from "./ChooseDayPreferences";
 
 type Props = {
   calendarId: string;
@@ -36,7 +37,7 @@ const SelectedCalendar: FunctionComponent<Props> = ({
     })();
   }, []);
   return (
-    <h1>{calendarId}</h1>
+    <ChooseDayPreferences />
   );
 };
 
