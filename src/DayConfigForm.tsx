@@ -3,8 +3,7 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 type Values = {
-  email: string;
-  password: string;
+  requested_day_periods: ("morning" | "afternoon" | "early_evening" | "late_evening")[]
 }
 
 async function postData(url = '', data = {}) {
@@ -19,35 +18,47 @@ async function postData(url = '', data = {}) {
     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(data) // body data type must match "Content-Type" header
   });
-  return response.json(); // parses JSON response into native JavaScript objects
+  return response;
 }
 
 const DayConfigForm = () => (
     <Formik
-      initialValues={{ email: '', password: '' }}
+      initialValues={{ "requested_day_periods": [] }}
       validate={(values: Values) => {
         const errors: any = {};
-        if (!values.email) {
-          errors.email = 'Required';
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = 'Invalid email address';
+        if (values.requested_day_periods.length === 0) {
+          errors.requested_day_periods = "You must select at least one period in the day in which you'd like events to be generated"
         }
         return errors;
       }}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         console.log("SUBMITTING", values);
         await postData('http://localhost:3000/make-my-day', values);
         setSubmitting(false);
+        resetForm();
       }}
     >
       {({ isSubmitting }) => (
         <Form>
-          <Field type="email" name="email" />
-          <ErrorMessage name="email" component="div" />
-          <Field type="password" name="password" />
-          <ErrorMessage name="password" component="div" />
+          <div role="group" aria-labelledby="checkbox-group">
+            <label>
+              <Field type="checkbox" name="requested_day_periods" value="morning" />
+              Morning (9am - 12pm)
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_day_periods" value="afternoon" />
+              Afternoon (12pm - 4pm)
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_day_periods" value="early_evening" />
+              Early Evening (4pm - 8pm)
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_day_periods" value="late_evening" />
+              Late Evening (8pm - 12pm)
+            </label>
+          </div>
+          <ErrorMessage name="requested_day_periods" />
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>
