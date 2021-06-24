@@ -31,7 +31,6 @@ const DayConfigForm = () => (
         return errors;
       }}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        console.log(process.env);
         await postData(`${process.env.REACT_APP_API_URL}/make-my-day`, values);
         setSubmitting(false);
         resetForm();
