@@ -8,7 +8,6 @@ type Values = {
 
 async function postData(url = '', data = {}) {
   // Default options are marked with *
-  console.log('data for post', data);
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -32,8 +31,8 @@ const DayConfigForm = () => (
         return errors;
       }}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        console.log("SUBMITTING", values);
-        await postData('http://localhost:3000/make-my-day', values);
+        console.log(process.env);
+        await postData(`${process.env.REACT_APP_API_URL}/make-my-day`, values);
         setSubmitting(false);
         resetForm();
       }}
