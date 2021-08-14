@@ -56,6 +56,44 @@ const DayConfigForm = () => (
               Late Evening (8pm - 12pm)
             </label>
           </div>
+          <div role="group" aria-labelledby="checkbox-group">
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="sporty" />
+              Sporty
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="social" />
+              Social
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="chilled" />
+              Chilled
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="creative" />
+              Creative
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="adventurous" />
+              Adventurous
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="domestic" />
+              Domestic
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="intellectual" />
+              Intellectual
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="culinary" />
+              Culinary
+            </label>
+            <label>
+              <Field type="checkbox" name="requested_activity_types" value="outgoing" />
+              Outgoing
+            </label>
+          </div>
           <ErrorMessage name="requested_day_periods" />
           <button type="submit" disabled={isSubmitting}>
             Submit
