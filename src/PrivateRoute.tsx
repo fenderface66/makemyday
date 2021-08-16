@@ -24,6 +24,7 @@ const PrivateRoute = ({...props}) => {
         if (response.status !== 201) {
           return history.push('/login');
         }
+        return setIsAuthenticated(true);
       } catch (e) {
         console.error(e);
       }
