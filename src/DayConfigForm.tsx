@@ -1,23 +1,11 @@
 // Render Prop
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-
+import api from "./api";
+import Cookies from "js-cookie";
+import {User} from "./App";
 type Values = {
   requested_day_periods: ("morning" | "afternoon" | "early_evening" | "late_evening")[]
-}
-
-async function postData(url = '', data = {}) {
-  // Default options are marked with *
-  const response = await fetch(url, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
-    headers: new Headers({'content-type': 'application/json'}),
-    redirect: 'follow', // manual, *follow, error
-    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
-  });
-  return response;
 }
 
 const DayConfigForm = () => (
@@ -31,7 +19,19 @@ const DayConfigForm = () => (
         return errors;
       }}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        await postData(`${process.env.REACT_APP_API_URL}/make-my-day`, values);
+
+        const userCookie = Cookies.get('user')
+        if (!userCookie) {
+          return console.error('No user cookie found');
+        }
+
+        const user: User = JSON.parse(userCookie as string)
+        await api(`${process.env.REACT_APP_API_URL}/make-my-day`, {
+          access_token: user.accessToken,
+          ...values
+        }, {
+          method: 'POST',
+        });
         setSubmitting(false);
         resetForm();
       }}
