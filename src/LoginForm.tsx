@@ -26,14 +26,13 @@ const LoginForm = () => {
     console.log(response);
   }
 
-  console.log(process.env);
-
   return <GoogleLogin
     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}
     buttonText="Login"
     onSuccess={onLoginSuccess}
     onFailure={onLoginFailure}
     cookiePolicy={'single_host_origin'}
+    scope="https://www.googleapis.com/auth/calendar"
   />
 }
 
