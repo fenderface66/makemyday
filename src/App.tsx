@@ -1,17 +1,19 @@
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
+  Route, Redirect,
 } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
 import './App.css';
-import DayConfigForm from "./DayConfigForm";
-import LoginForm from './LoginForm';
-import PrivateRoute from "./PrivateRoute";
+import DayConfigForm from "./pages/DayConfigForm";
+import LoginForm from './pages/LoginForm/LoginForm';
+import Interests from "./pages/Interests"
+import PrivateRoute from "./components/PrivateRoute";
+import React from "react";
+
 export type User = {
   accessToken: string;
 }
-
 
 function App() {
   return (
@@ -21,8 +23,18 @@ function App() {
           <Route path="/login">
             <LoginForm />
           </Route>
-          <PrivateRoute path="/">
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <Redirect to="/home" />
+            )}
+          />
+          <PrivateRoute path="/home">
             <DayConfigForm />
+          </PrivateRoute>
+          <PrivateRoute path="/interests">
+            <Interests />
           </PrivateRoute>
         </Switch>
       </Router>

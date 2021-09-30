@@ -9,7 +9,7 @@ import { createMemoryHistory } from 'history'
 import renderer, { act } from 'react-test-renderer';
 import PrivateRoute from "./PrivateRoute";
 
-import * as api from './api';
+import * as api from '../api';
 
 jest.mock('./api', () => ({
   __esModule: true,

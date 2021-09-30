@@ -2,8 +2,8 @@ import React from 'react';
 import {Route, Redirect, useHistory} from 'react-router-dom'
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
-import api from "./api";
-import {User} from "./App";
+import api from "../api";
+import {User} from "../App";
 
 const PrivateRoute = ({...props}) => {
   let history = useHistory();
@@ -30,6 +30,7 @@ const PrivateRoute = ({...props}) => {
       }
     })();
   }, [])
+  console.log(props);
   return isAuthenticated
     ? <Route { ...props } />
     : <Redirect to="/login" />

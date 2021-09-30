@@ -1,14 +1,14 @@
 // Render Prop
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import api from "./api";
+import api from "../../api";
 import Cookies from "js-cookie";
-import {User} from "./App";
+import {User} from "../../App";
 type Values = {
   requested_day_periods: ("morning" | "afternoon" | "early_evening" | "late_evening")[]
 }
 
-const DayConfigForm = () => (
+const Index = () => (
     <Formik
       initialValues={{ "requested_day_periods": [] }}
       validate={(values: Values) => {
@@ -103,4 +103,4 @@ const DayConfigForm = () => (
     </Formik>
 );
 
-export default DayConfigForm;
+export default Index;
