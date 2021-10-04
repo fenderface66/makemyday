@@ -1,7 +1,8 @@
 import React from 'react';
 import {ErrorMessage, Field, Form, Formik, FormikProps} from "formik";
 import styled from 'styled-components';
-import outdoors from "../../assets/outdoors.jpg"
+import hiking_outside from "../../assets/interest_images/hiking_outside.jpg"
+import book_and_glasses from "../../assets/interest_images/book_and_glasses.jpg"
 import checkmark from "../../assets/checkmark.png"
 
 const SelectableImageContainer = styled.div`
@@ -29,10 +30,14 @@ const SelectableImage = ({ imageSrc, checked } : {imageSrc: string, checked: boo
     <BackgroundImage src={imageSrc} />
     {checked ? <CheckMark src={checkmark} /> : null}
   </SelectableImageContainer>
-)
+);
+
+const Grid = styled.div`
+  
+`
 
 type Values = {
-  interests: ("outdoor_sports")[]
+  interests: string[]
 }
 
 const Interests = () => {
@@ -49,8 +54,12 @@ const Interests = () => {
           <Form>
             <div role="group" aria-labelledby="checkbox-group">
               <label>
-                <Field type="checkbox" name="interests" value="outdoor_sports" />
-                <SelectableImage imageSrc={outdoors} checked={values.interests.includes("outdoor_sports") } />
+                <Field type="checkbox" name="interests" value="hiking_outside" />
+                <SelectableImage imageSrc={hiking_outside} checked={values.interests.includes("hiking_outside") } />
+              </label>
+              <label>
+                <Field type="checkbox" name="interests" value="book_and_glasses" />
+                <SelectableImage imageSrc={book_and_glasses} checked={values.interests.includes("book_and_glasses") } />
               </label>
             </div>
             <ErrorMessage name="requested_day_periods" />
