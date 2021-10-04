@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,7 +10,6 @@ import DayConfigForm from "./pages/DayConfigForm";
 import LoginForm from './pages/LoginForm/LoginForm';
 import Interests from "./pages/Interests"
 import PrivateRoute from "./components/PrivateRoute";
-import React from "react";
 
 export type User = {
   accessToken: string;

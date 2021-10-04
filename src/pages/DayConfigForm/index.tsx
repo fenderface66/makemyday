@@ -8,7 +8,7 @@ type Values = {
   requested_day_periods: ("morning" | "afternoon" | "early_evening" | "late_evening")[]
 }
 
-const Index = () => (
+const DayConfigForm = () => (
     <Formik
       initialValues={{ "requested_day_periods": [] }}
       validate={(values: Values) => {
@@ -103,4 +103,4 @@ const Index = () => (
     </Formik>
 );
 
-export default Index;
+export default DayConfigForm;
