@@ -27,6 +27,10 @@ import tidy_apple_tech_desk from "../../assets/interest_images/tidy_apple_tech_d
 import tidy_room from "../../assets/interest_images/tidy_room.jpg"
 import videogame_arcade from "../../assets/interest_images/videogame_arcade.jpg"
 
+export type Image = {
+  name: string;
+  src: string;
+}
 
 const images = [{
   name: 'beer_being_poured',

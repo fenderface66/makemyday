@@ -1,16 +1,15 @@
 import React from 'react';
 import {ErrorMessage, Field, Form, Formik, FormikProps} from "formik";
 import styled from 'styled-components';
-import hiking_outside from "../../assets/interest_images/hiking_outside.jpg"
-import book_and_glasses from "../../assets/interest_images/book_and_glasses.jpg"
+import Masonry from 'react-masonry-component';
+import images, {Image} from './images';
 import checkmark from "../../assets/checkmark.png"
 
+
 const SelectableImageContainer = styled.div`
-  max-height: 300px;
-  max-width: 150px;
   position: relative;
-  object-fit: cover;
-  bottom: 20px;
+  cursor: pointer;
+  max-width: 300px;
 `;
 
 const BackgroundImage = styled.img`
@@ -21,20 +20,37 @@ const BackgroundImage = styled.img`
 const CheckMark = styled.img`
   max-width: 30px;
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
 `
 
-const SelectableImage = ({ imageSrc, checked } : {imageSrc: string, checked: boolean}) => (
+const Checkbox = styled(Field)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  visibility: hidden;
+`
+
+const Overlay = styled.div`
+  width: 100%;
+  height: 65px;
+  overflow: hidden;
+  position: absolute;
+  background: linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.0));
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 9;
+`;
+
+const SelectableImage = ({ image, checked } : {image: Image, checked: boolean}) => (
   <SelectableImageContainer>
-    <BackgroundImage src={imageSrc} />
+    <Overlay />
+    <Checkbox type="checkbox" name="interests" value={image.name} />
+    <BackgroundImage src={image.src} />
     {checked ? <CheckMark src={checkmark} /> : null}
   </SelectableImageContainer>
 );
-
-const Grid = styled.div`
-  
-`
 
 type Values = {
   interests: string[]
@@ -53,14 +69,13 @@ const Interests = () => {
         {({ isSubmitting, values }: FormikProps<Values>) => (
           <Form>
             <div role="group" aria-labelledby="checkbox-group">
-              <label>
-                <Field type="checkbox" name="interests" value="hiking_outside" />
-                <SelectableImage imageSrc={hiking_outside} checked={values.interests.includes("hiking_outside") } />
-              </label>
-              <label>
-                <Field type="checkbox" name="interests" value="book_and_glasses" />
-                <SelectableImage imageSrc={book_and_glasses} checked={values.interests.includes("book_and_glasses") } />
-              </label>
+                <Masonry>
+                  {images.map(image => (
+                    <label>
+                      <SelectableImage image={image} checked={values.interests.includes(image.name) } />
+                    </label>
+                  ))}
+                </Masonry>
             </div>
             <ErrorMessage name="requested_day_periods" />
             <button type="submit" disabled={isSubmitting}>
