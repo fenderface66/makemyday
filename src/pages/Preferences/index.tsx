@@ -6,6 +6,9 @@ import { css } from "@emotion/react";
 import images, {Image} from './images';
 import checkmark from "../../assets/checkmark.png"
 import ClipLoader from "react-spinners/ClipLoader";
+import Cookies from "js-cookie";
+import {User} from "../../App";
+import api from "../../api";
 
 
 const SelectableImageContainer = styled.div`
@@ -67,7 +70,7 @@ const LoadingScreen = styled.div`
 const SelectableImage = ({ image, checked } : {image: Image, checked: boolean}) => (
   <SelectableImageContainer>
     <Overlay />
-    <Checkbox type="checkbox" name="interests" value={image.name} />
+    <Checkbox type="checkbox" name="preference_scenes" value={image.name} />
     <BackgroundImage src={image.src} />
     {checked ? <CheckMark src={checkmark} /> : null}
   </SelectableImageContainer>
@@ -79,10 +82,10 @@ const MasonryContainer = styled.div`
 `
 
 type Values = {
-  interests: string[]
+  preference_scenes: string[]
 }
 
-const Interests = () => {
+const Preferences = () => {
   const [layoutComplete, setLayoutComplete] = useState<boolean>(false);
   return (
     <>
@@ -91,9 +94,25 @@ const Interests = () => {
       </LoadingScreen> : null}
       <Formik
         initialValues={{
-          interests: [],
+          preference_scenes: [],
         }}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {}}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          // TODO Write function to check for user cookie
+          const userCookie = Cookies.get('user')
+          if (!userCookie) {
+            return console.error('No user cookie found');
+          }
+
+          const user: User = JSON.parse(userCookie as string)
+          await api(`${process.env.REACT_APP_API_URL}/preferences`, {
+            access_token: user.accessToken,
+            ...values
+          }, {
+            method: 'POST',
+          });
+          setSubmitting(false);
+          resetForm();
+        }}
       >
         {({ isSubmitting, values }: FormikProps<Values>) => (
           <Form>
@@ -106,7 +125,7 @@ const Interests = () => {
                 >
                   {images.map(image => (
                     <label>
-                      <SelectableImage image={image} checked={values.interests.includes(image.name) } />
+                      <SelectableImage image={image} checked={values.preference_scenes.includes(image.name) } />
                     </label>
                   ))}
                 </Masonry>
@@ -122,4 +141,4 @@ const Interests = () => {
   )
 };
 
-export default Interests;
+export default Preferences;

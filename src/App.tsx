@@ -8,7 +8,7 @@ import { CookiesProvider } from "react-cookie";
 import './App.css';
 import DayConfigForm from "./pages/DayConfigForm";
 import LoginForm from './pages/LoginForm/LoginForm';
-import Interests from "./pages/Interests"
+import Preferences from "./pages/Preferences"
 import PrivateRoute from "./components/PrivateRoute";
 
 export type User = {
@@ -33,8 +33,8 @@ function App() {
           <PrivateRoute path="/home">
             <DayConfigForm />
           </PrivateRoute>
-          <PrivateRoute path="/interests">
-            <Interests />
+          <PrivateRoute path="/preferences">
+            <Preferences />
           </PrivateRoute>
         </Switch>
       </Router>
