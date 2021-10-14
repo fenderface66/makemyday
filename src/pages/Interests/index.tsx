@@ -70,7 +70,7 @@ const LoadingScreen = styled.div`
 const SelectableImage = ({ image, checked } : {image: Image, checked: boolean}) => (
   <SelectableImageContainer>
     <Overlay />
-    <Checkbox type="checkbox" name="preference_scenes" value={image.name} />
+    <Checkbox type="checkbox" name="interest_scenes" value={image.name} />
     <BackgroundImage src={image.src} />
     {checked ? <CheckMark src={checkmark} /> : null}
   </SelectableImageContainer>
@@ -82,7 +82,7 @@ const MasonryContainer = styled.div`
 `
 
 type Values = {
-  preference_scenes: string[]
+  interest_scenes: string[]
 }
 
 const Preferences = () => {
@@ -94,7 +94,7 @@ const Preferences = () => {
       </LoadingScreen> : null}
       <Formik
         initialValues={{
-          preference_scenes: [],
+          interest_scenes: [],
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           // TODO Write function to check for user cookie
@@ -104,7 +104,7 @@ const Preferences = () => {
           }
 
           const user: User = JSON.parse(userCookie as string)
-          await api(`${process.env.REACT_APP_API_URL}/preferences`, {
+          await api(`${process.env.REACT_APP_API_URL}/interests`, {
             access_token: user.accessToken,
             ...values
           }, {
@@ -125,7 +125,7 @@ const Preferences = () => {
                 >
                   {images.map(image => (
                     <label>
-                      <SelectableImage image={image} checked={values.preference_scenes.includes(image.name) } />
+                      <SelectableImage image={image} checked={values.interest_scenes.includes(image.name) } />
                     </label>
                   ))}
                 </Masonry>
