@@ -8,7 +8,7 @@ import { CookiesProvider } from "react-cookie";
 import './App.css';
 import DayConfigForm from "./pages/DayConfigForm";
 import LoginForm from './pages/LoginForm/LoginForm';
-import Preferences from "./pages/interests"
+import Preferences from "./pages/Interests"
 import PrivateRoute from "./components/PrivateRoute";
 
 export type User = {
