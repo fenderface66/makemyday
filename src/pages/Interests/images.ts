@@ -36,6 +36,8 @@ import stand_up_comic from "../../assets/interest_scenes/stand_up_comic.jpg"
 import swimming from "../../assets/interest_scenes/swimming.jpg"
 import television from "../../assets/interest_scenes/television.jpg"
 import theatre from "../../assets/interest_scenes/theatre.jpg"
+import board_game from "../../assets/interest_scenes/board_game.jpg"
+import gig from "../../assets/interest_scenes/gig.jpg"
 
 export type Image = {
   name: string;
@@ -156,6 +158,12 @@ const images = [{
 },{
   name: 'theatre',
   src: theatre,
-}];
+},{
+  name: 'board_game',
+  src: board_game,
+},{
+  name: 'gig',
+  src: gig,
+}]];
 
 export default images;

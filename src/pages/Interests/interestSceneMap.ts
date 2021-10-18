@@ -58,7 +58,7 @@ export type interest =
   | 'performing'
   | 'singing'
   | 'dancing'
-  | 'dancing'
+  | 'live_music'
   | 'night_life'
   | 'film'
   | 'television'
@@ -69,6 +69,7 @@ export type interest =
   | 'fishing'
   | 'travelling'
   | 'exploration'
+  | 'board_games'
 
 export const interestSceneMap: {
   [index: string]: interest[]
@@ -110,5 +111,7 @@ export const interestSceneMap: {
   'swimming': ['swimming', 'water_sports', 'sport'],
   'meditation': ['meditation', 'mental_health', 'spirituality'],
   'fishing': ['fishing', 'water_sports'],
-  'city_exploration': ['travelling', 'exploration', 'outgoing']
+  'city_exploration': ['travelling', 'exploration', 'outgoing'],
+  'board_game': ['board_games', 'nerd_culture'],
+  'gig': ['socialising', 'music', 'night_life', 'live_music'],
 }
