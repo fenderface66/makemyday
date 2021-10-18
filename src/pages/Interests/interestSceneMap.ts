@@ -42,7 +42,7 @@ export type interest =
   | 'skateboarding'
   | 'action_sport'
   | 'snorkling'
-  | 'sea_activities'
+  | 'water_sports'
   | 'intellectualism'
   | 'star_wars'
   | 'nerd_culture'
@@ -51,6 +51,24 @@ export type interest =
   | 'interior_design'
   | 'comfiness'
   | 'retro_culture'
+  | 'creative_activities'
+  | 'karaoke'
+  | 'comedy'
+  | 'theatre'
+  | 'performing'
+  | 'singing'
+  | 'dancing'
+  | 'dancing'
+  | 'night_life'
+  | 'film'
+  | 'television'
+  | 'swimming'
+  | 'meditation'
+  | 'mental_health'
+  | 'spirituality'
+  | 'fishing'
+  | 'travelling'
+  | 'exploration'
 
 export const interestSceneMap: {
   [index: string]: interest[]
@@ -61,7 +79,7 @@ export const interestSceneMap: {
   'cheers_with_beer': ['alcohol', 'beer', 'socialising'],
   'cheers_with_coffee': ['coffee', 'socialising'],
   'coding_on_tidy_desk': ['coding', 'working', 'tech'],
-  'collection_of_craft_items': ['knitting', 'photography', 'art'],
+  'collection_of_craft_items': ['knitting', 'photography', 'art', 'creative_activities'],
   'gadgets': ['tech', 'photography', 'style'],
   'golf': ['golf', 'sport'],
   'hiking_outside': ['hiking'],
@@ -77,10 +95,20 @@ export const interestSceneMap: {
   'producing_electronic_music': ['music_production', 'electronic_music', 'music'],
   'shuttlecock': ['shuttlecock', 'racket_sports', 'sport'],
   'skateboarding': ['skateboarding', 'action_sport'],
-  'snorkling': ['snorkling', 'sea_activities'],
+  'snorkling': ['snorkling', 'water_sports'],
   'stack_of_books': ['reading', 'intellectualism'],
   'stormtrooper': ['star_wars', 'nerd_culture'],
   'tidy_apple_tech_desk': ['tidiness', 'apple_tech', 'tech'],
   'tidy_room': ['interior_design', 'comfiness'],
   'videogame_arcade': ['video_games', 'retro_culture', 'amusement'],
+  'karaoke': ['amusement', 'outgoing', 'music', 'socialising', 'karaoke', 'performing', 'singing'],
+  'stand_up_comic': ['comedy', 'laughter', 'performing', 'amusement', 'outgoing'],
+  'clubing': ['socialising', 'music', 'electronic_music', 'dancing', 'night_life'],
+  'theatre': ['art', 'theatre', 'performing'],
+  'cinema': ['film', 'amusement', 'outgoing'],
+  'television': ['television', 'film', 'comfiness'],
+  'swimming': ['swimming', 'water_sports', 'sport'],
+  'meditation': ['meditation', 'mental_health', 'spirituality'],
+  'fishing': ['fishing', 'water_sports'],
+  'city_exploration': ['travelling', 'exploration', 'outgoing']
 }

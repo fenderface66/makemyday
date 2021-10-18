@@ -1,31 +1,41 @@
-import beer_being_poured from "../../assets/interest_images/beer_being_poured.jpg"
-import hiking_outside from "../../assets/interest_images/hiking_outside.jpg"
-import book_and_glasses from "../../assets/interest_images/book_and_glasses.jpg"
-import carnival_ride from "../../assets/interest_images/carnival_ride.jpg"
-import cheers_with_beer from "../../assets/interest_images/cheers_with_beer.jpg"
-import cheers_with_coffee from "../../assets/interest_images/cheers_with_coffee.jpg"
-import coding_on_tidy_desk from "../../assets/interest_images/coding_on_tidy_desk.jpg"
-import collection_of_craft_items from "../../assets/interest_images/collection_of_craft_items.jpg"
-import gadgets from "../../assets/interest_images/gadgets.jpg"
-import golf from "../../assets/interest_images/golf.jpg"
-import holding_a_camera from "../../assets/interest_images/holding_a_camera.jpg"
-import hugging_friends_on_hike from "../../assets/interest_images/hugging_friends_on_hike.jpg"
-import ingredients_on_chopping_board from "../../assets/interest_images/ingredients_on_chopping_board.jpg"
-import laughing_with_friends_outdoors from "../../assets/interest_images/laughing_with_friends_outdoors.jpg"
-import pizza from "../../assets/interest_images/pizza.jpg"
-import planting from "../../assets/interest_images/planting.jpg"
-import playing_guitar from "../../assets/interest_images/playing_guitar.jpg"
-import playing_playstation from "../../assets/interest_images/playing_playstation.jpg"
-import pottery from "../../assets/interest_images/pottery.jpg"
-import producing_electronic_music from "../../assets/interest_images/producing_electronic_music.jpg"
-import shuttlecock from "../../assets/interest_images/shuttlecock.jpg"
-import skateboarding from "../../assets/interest_images/skateboarding.jpg"
-import snorkling from "../../assets/interest_images/snorkling.jpg"
-import stack_of_books from "../../assets/interest_images/stack_of_books.jpg"
-import stormtrooper from "../../assets/interest_images/stormtrooper.jpg"
-import tidy_apple_tech_desk from "../../assets/interest_images/tidy_apple_tech_desk.jpg"
-import tidy_room from "../../assets/interest_images/tidy_room.jpg"
-import videogame_arcade from "../../assets/interest_images/videogame_arcade.jpg"
+import beer_being_poured from "../../assets/interest_scenes/beer_being_poured.jpg"
+import hiking_outside from "../../assets/interest_scenes/hiking_outside.jpg"
+import book_and_glasses from "../../assets/interest_scenes/book_and_glasses.jpg"
+import carnival_ride from "../../assets/interest_scenes/carnival_ride.jpg"
+import cheers_with_beer from "../../assets/interest_scenes/cheers_with_beer.jpg"
+import cheers_with_coffee from "../../assets/interest_scenes/cheers_with_coffee.jpg"
+import coding_on_tidy_desk from "../../assets/interest_scenes/coding_on_tidy_desk.jpg"
+import collection_of_craft_items from "../../assets/interest_scenes/collection_of_craft_items.jpg"
+import gadgets from "../../assets/interest_scenes/gadgets.jpg"
+import golf from "../../assets/interest_scenes/golf.jpg"
+import holding_a_camera from "../../assets/interest_scenes/holding_a_camera.jpg"
+import hugging_friends_on_hike from "../../assets/interest_scenes/hugging_friends_on_hike.jpg"
+import ingredients_on_chopping_board from "../../assets/interest_scenes/ingredients_on_chopping_board.jpg"
+import laughing_with_friends_outdoors from "../../assets/interest_scenes/laughing_with_friends_outdoors.jpg"
+import pizza from "../../assets/interest_scenes/pizza.jpg"
+import planting from "../../assets/interest_scenes/planting.jpg"
+import playing_guitar from "../../assets/interest_scenes/playing_guitar.jpg"
+import playing_playstation from "../../assets/interest_scenes/playing_playstation.jpg"
+import pottery from "../../assets/interest_scenes/pottery.jpg"
+import producing_electronic_music from "../../assets/interest_scenes/producing_electronic_music.jpg"
+import shuttlecock from "../../assets/interest_scenes/shuttlecock.jpg"
+import skateboarding from "../../assets/interest_scenes/skateboarding.jpg"
+import snorkling from "../../assets/interest_scenes/snorkling.jpg"
+import stack_of_books from "../../assets/interest_scenes/stack_of_books.jpg"
+import stormtrooper from "../../assets/interest_scenes/stormtrooper.jpg"
+import tidy_apple_tech_desk from "../../assets/interest_scenes/tidy_apple_tech_desk.jpg"
+import tidy_room from "../../assets/interest_scenes/tidy_room.jpg"
+import videogame_arcade from "../../assets/interest_scenes/videogame_arcade.jpg"
+import cinema from "../../assets/interest_scenes/cinema.jpg"
+import city_exploration from "../../assets/interest_scenes/city_exploration.jpg"
+import clubing from "../../assets/interest_scenes/clubing.jpg"
+import fishing from "../../assets/interest_scenes/fishing.jpg"
+import karaoke from "../../assets/interest_scenes/karaoke.jpg"
+import meditation from "../../assets/interest_scenes/meditation.jpg"
+import stand_up_comic from "../../assets/interest_scenes/stand_up_comic.jpg"
+import swimming from "../../assets/interest_scenes/swimming.jpg"
+import television from "../../assets/interest_scenes/television.jpg"
+import theatre from "../../assets/interest_scenes/theatre.jpg"
 
 export type Image = {
   name: string;
@@ -116,6 +126,36 @@ const images = [{
 },{
   name: 'videogame_arcade',
   src: videogame_arcade,
+},{
+  name: 'cinema',
+  src: cinema,
+},{
+  name: 'city_exploration',
+  src: city_exploration,
+},{
+  name: 'clubing',
+  src: clubing,
+},{
+  name: 'fishing',
+  src: fishing,
+},{
+  name: 'karaoke',
+  src: karaoke,
+},{
+  name: 'meditation',
+  src: meditation,
+},{
+  name: 'stand_up_comic',
+  src: stand_up_comic,
+},{
+  name: 'swimming',
+  src: swimming,
+},{
+  name: 'television',
+  src: television,
+},{
+  name: 'theatre',
+  src: theatre,
 }];
 
 export default images;

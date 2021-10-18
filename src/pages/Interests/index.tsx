@@ -9,6 +9,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from "js-cookie";
 import {User} from "../../App";
 import api from "../../api";
+import {interestSceneMap} from "./interestSceneMap";
 
 
 const SelectableImageContainer = styled.div`
@@ -103,10 +104,12 @@ const Preferences = () => {
             return console.error('No user cookie found');
           }
 
-          const user: User = JSON.parse(userCookie as string)
+          const user: User = JSON.parse(userCookie as string);
+          const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
+          const uniqueInterests = [...new Set(interests)];
           await api(`${process.env.REACT_APP_API_URL}/interests`, {
             access_token: user.accessToken,
-            ...values
+            interests: uniqueInterests,
           }, {
             method: 'POST',
           });
