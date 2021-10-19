@@ -164,6 +164,6 @@ const images = [{
 },{
   name: 'gig',
   src: gig,
-}]];
+}];
 
 export default images;

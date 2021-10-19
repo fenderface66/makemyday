@@ -58,40 +58,24 @@ const DayConfigForm = () => (
           </div>
           <div role="group" aria-labelledby="checkbox-group">
             <label>
-              <Field type="checkbox" name="requested_activity_types" value="sporty" />
-              Sporty
+              <Field type="checkbox" name="requested_activity_types" value="active" />
+              I feel like doing something active today
             </label>
             <label>
               <Field type="checkbox" name="requested_activity_types" value="social" />
-              Social
+              I want to be social today
             </label>
             <label>
-              <Field type="checkbox" name="requested_activity_types" value="chilled" />
-              Chilled
+              <Field type="checkbox" name="requested_activity_types" value="amusement" />
+              I want to have fun today
             </label>
             <label>
-              <Field type="checkbox" name="requested_activity_types" value="creative" />
-              Creative
-            </label>
-            <label>
-              <Field type="checkbox" name="requested_activity_types" value="adventurous" />
-              Adventurous
-            </label>
-            <label>
-              <Field type="checkbox" name="requested_activity_types" value="domestic" />
-              Domestic
-            </label>
-            <label>
-              <Field type="checkbox" name="requested_activity_types" value="intellectual" />
-              Intellectual
-            </label>
-            <label>
-              <Field type="checkbox" name="requested_activity_types" value="culinary" />
-              Culinary
+              <Field type="checkbox" name="requested_activity_types" value="self_improvement" />
+              I feel like improving myself today
             </label>
             <label>
               <Field type="checkbox" name="requested_activity_types" value="outgoing" />
-              Outgoing
+              I feel like getting out of the house today
             </label>
           </div>
           <ErrorMessage name="requested_day_periods" />
