@@ -6,8 +6,7 @@ import { css } from "@emotion/react";
 import images, {Image} from './images';
 import checkmark from "../../assets/checkmark.png"
 import ClipLoader from "react-spinners/ClipLoader";
-import Cookies from "js-cookie";
-import {User} from "../../App";
+import { getUserFromCookie } from "../../cookie.util";
 import api from "../../api";
 import {interestSceneMap} from "./interestSceneMap";
 
@@ -86,7 +85,7 @@ type Values = {
   interest_scenes: string[]
 }
 
-const Preferences = () => {
+const Interests = () => {
   const [layoutComplete, setLayoutComplete] = useState<boolean>(false);
   return (
     <>
@@ -98,15 +97,9 @@ const Preferences = () => {
           interest_scenes: [],
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          // TODO Write function to check for user cookie
-          const userCookie = Cookies.get('user')
-          if (!userCookie) {
-            return console.error('No user cookie found');
-          }
-
-          const user: User = JSON.parse(userCookie as string);
           const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
           const uniqueInterests = [...new Set(interests)];
+          const user = getUserFromCookie();
           await api(`${process.env.REACT_APP_API_URL}/interests`, {
             access_token: user.accessToken,
             interests: uniqueInterests,
@@ -127,14 +120,14 @@ const Preferences = () => {
                   onLayoutComplete={() => setLayoutComplete(true)}
                 >
                   {images.map(image => (
-                    <label>
-                      <SelectableImage image={image} checked={values.interest_scenes.includes(image.name) } />
+                    <label key={`label-${image.name}`}>
+                      <SelectableImage key={image.name} image={image} checked={values.interest_scenes.includes(image.name) } />
                     </label>
                   ))}
                 </Masonry>
             </MasonryContainer>
             <ErrorMessage name="requested_day_periods" />
-            <button type="submit" disabled={isSubmitting}>
+            <button role="button" type="submit" disabled={isSubmitting}>
               Submit
             </button>
           </Form>
@@ -144,4 +137,4 @@ const Preferences = () => {
   )
 };
 
-export default Preferences;
+export default Interests;
