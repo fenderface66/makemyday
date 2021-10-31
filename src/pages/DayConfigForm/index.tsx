@@ -9,8 +9,8 @@ type Values = {
 }
 
 export enum Status {
-  HAS_INTERESTS = 'HAS_INTERESTS',
-  HAS_NO_INTERESTS = 'HAS_NO_INTERESTS',
+  HAS_INTERESTS = 'HAS_RECORDED_INTERESTS',
+  HAS_NO_INTERESTS = 'HAS_NO_RECORDED_INTERESTS',
 }
 
 const DayConfigForm = () => {
