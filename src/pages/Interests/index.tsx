@@ -9,6 +9,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { getUserFromCookie } from "../../cookie.util";
 import api from "../../api";
 import {interestSceneMap} from "./interestSceneMap";
+import {useHistory} from "react-router";
 
 
 const SelectableImageContainer = styled.div`
@@ -86,6 +87,7 @@ type Values = {
 }
 
 const Interests = () => {
+  let history = useHistory();
   const [layoutComplete, setLayoutComplete] = useState<boolean>(false);
   return (
     <>
@@ -100,12 +102,15 @@ const Interests = () => {
           const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
           const uniqueInterests = [...new Set(interests)];
           const user = getUserFromCookie();
-          await api(`${process.env.REACT_APP_API_URL}/interests`, {
+          const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
             access_token: user.accessToken,
             interests: uniqueInterests,
           }, {
             method: 'POST',
           });
+          if (res.status === 201) {
+            return history.push('/');
+          }
           setSubmitting(false);
           resetForm();
         }}
