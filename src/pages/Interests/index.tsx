@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ErrorMessage, Field, Form, Formik, FormikProps} from "formik";
+import {Field, Form, Formik, FormikProps} from "formik";
 import styled from 'styled-components';
 import Masonry from 'react-masonry-component';
 import { css } from "@emotion/react";
@@ -10,6 +10,7 @@ import { getUserFromCookie } from "../../cookie.util";
 import api from "../../api";
 import {interestSceneMap} from "./interestSceneMap";
 import {useHistory} from "react-router";
+import {Button, Box, Container} from "@mui/material";
 
 
 const SelectableImageContainer = styled.div`
@@ -94,50 +95,60 @@ const Interests = () => {
       {!layoutComplete ? <LoadingScreen>
         <ClipLoader loading={!layoutComplete} css={override} />
       </LoadingScreen> : null}
-      <Formik
-        initialValues={{
-          interest_scenes: [],
-        }}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
-          const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
-          const uniqueInterests = [...new Set(interests)];
-          const user = getUserFromCookie();
-          const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
-            access_token: user.accessToken,
-            interests: uniqueInterests,
-          }, {
-            method: 'POST',
-          });
-          if (res.status === 201) {
-            return history.push('/');
-          }
-          setSubmitting(false);
-          resetForm();
-        }}
-      >
-        {({ isSubmitting, values }: FormikProps<Values>) => (
-          <Form>
-            <MasonryContainer role="group" aria-labelledby="checkbox-group">
-                <Masonry
-                  options={{
-                    fitWidth: true
-                  }}
-                  onLayoutComplete={() => setLayoutComplete(true)}
-                >
-                  {images.map(image => (
-                    <label key={`label-${image.name}`}>
-                      <SelectableImage key={image.name} image={image} checked={values.interest_scenes.includes(image.name) } />
-                    </label>
-                  ))}
-                </Masonry>
-            </MasonryContainer>
-            <ErrorMessage name="requested_day_periods" />
-            <button role="button" type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
+      <Box sx={{
+        my: 2
+      }}>
+      <Container sx={{
+        textAlign: 'center',
+      }}>
+        <Formik
+          initialValues={{
+            interest_scenes: [],
+          }}
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
+            const uniqueInterests = [...new Set(interests)];
+            const user = getUserFromCookie();
+            const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
+              access_token: user.accessToken,
+              interests: uniqueInterests,
+            }, {
+              method: 'POST',
+            });
+            if (res.status === 201) {
+              return history.push('/');
+            }
+            setSubmitting(false);
+            resetForm();
+          }}
+        >
+          {({ isSubmitting, values }: FormikProps<Values>) => (
+            <Form>
+              <h2>Please select the images that best represent your interests</h2>
+              <MasonryContainer role="group" aria-labelledby="checkbox-group">
+                  <Masonry
+                    options={{
+                      fitWidth: true
+                    }}
+                    onLayoutComplete={() => setLayoutComplete(true)}
+                  >
+                    {images.map(image => (
+                      <label key={`label-${image.name}`}>
+                        <SelectableImage key={image.name} image={image} checked={values.interest_scenes.includes(image.name) } />
+                      </label>
+                    ))}
+                  </Masonry>
+              </MasonryContainer>
+              <Box>
+                <Button size="large" color="primary" variant="contained" type="submit"  disabled={isSubmitting}>
+                  Submit
+                </Button>
+              </Box>
+            </Form>
+          )}
+        </Formik>
+      </Container>
+      </Box>
     </>
   )
 };

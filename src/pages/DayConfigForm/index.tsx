@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import api from "../../api";
+import {Formik, Form, Field, ErrorMessage, FormikProps} from 'formik';
 import Cookies from "js-cookie";
+import api from "../../api";
 import {User} from "../../App";
 import {Redirect} from 'react-router-dom'
+import { Button, Container, Box } from '@mui/material';
+import {Checkbox} from "formik-mui";
+
 type Values = {
   requested_day_periods: ("morning" | "afternoon" | "early_evening" | "late_evening")[]
+  requested_activity_types: ("active" | "social" | "amusement" | "self_improvement" | "outgoing")[]
 }
 
 export enum Status {
@@ -23,12 +27,17 @@ const DayConfigForm = () => {
     }
     fetchInterestsStatus().then();
   }, [])
-  return interestsStatus === Status.HAS_NO_INTERESTS ? <Redirect to="/interests" /> : <Formik
-    initialValues={{ "requested_day_periods": [] }}
+  return interestsStatus === Status.HAS_NO_INTERESTS ? <Redirect to="/interests" /> :
+    <Container><Formik
+    initialValues={{ "requested_day_periods": [], "requested_activity_types": [] }}
     validate={(values: Values) => {
+      console.log(values);
       const errors: any = {};
       if (values.requested_day_periods.length === 0) {
         errors.requested_day_periods = "You must select at least one period in the day in which you'd like events to be generated"
+      }
+      if (values.requested_activity_types.length === 0) {
+        errors.requested_activity_types = "You must select at least one activity type"
       }
       return errors;
     }}
@@ -52,53 +61,84 @@ const DayConfigForm = () => {
   >
     {({ isSubmitting }) => (
       <Form>
+        <h2>When would you like activities scheduled in your day?</h2>
         <div role="group" aria-labelledby="checkbox-group">
+          <Box>
+            <label>
+              <Field type="checkbox" component={Checkbox} name="requested_day_periods" value="morning" />
+              Morning (9am - 12pm)
+            </label>
+          </Box>
+          <Box>
           <label>
-            <Field type="checkbox" name="requested_day_periods" value="morning" />
-            Morning (9am - 12pm)
-          </label>
-          <label>
-            <Field type="checkbox" name="requested_day_periods" value="afternoon" />
+            <Field type="checkbox" component={Checkbox} name="requested_day_periods" value="afternoon" />
             Afternoon (12pm - 4pm)
           </label>
+          </Box>
+            <Box>
           <label>
-            <Field type="checkbox" name="requested_day_periods" value="early_evening" />
+            <Field type="checkbox" component={Checkbox} name="requested_day_periods" value="early_evening" />
             Early Evening (4pm - 8pm)
           </label>
+            </Box>
+              <Box>
           <label>
-            <Field type="checkbox" name="requested_day_periods" value="late_evening" />
+            <Field type="checkbox" component={Checkbox} name="requested_day_periods" value="late_evening" />
             Late Evening (8pm - 12pm)
           </label>
+              </Box>
         </div>
         <div role="group" aria-labelledby="checkbox-group">
+          <h2>What kind of day would you like to have scheduled?</h2>
+          <Box>
           <label>
-            <Field type="checkbox" name="requested_activity_types" value="active" />
+            <Field type="checkbox" component={Checkbox} name="requested_activity_types" value="active" />
             I feel like doing something active today
           </label>
+          </Box>
+          <Box>
           <label>
-            <Field type="checkbox" name="requested_activity_types" value="social" />
+            <Field type="checkbox" component={Checkbox} name="requested_activity_types" value="social" />
             I want to be social today
           </label>
+          </Box>
+          <Box>
           <label>
-            <Field type="checkbox" name="requested_activity_types" value="amusement" />
+            <Field type="checkbox" component={Checkbox} name="requested_activity_types" value="amusement" />
             I want to have fun today
           </label>
+          </Box>
+          <Box>
           <label>
-            <Field type="checkbox" name="requested_activity_types" value="self_improvement" />
+            <Field type="checkbox" component={Checkbox} name="requested_activity_types" value="self_improvement" />
             I feel like improving myself today
           </label>
+          </Box>
+          <Box>
           <label>
-            <Field type="checkbox" name="requested_activity_types" value="outgoing" />
+            <Field type="checkbox" component={Checkbox} name="requested_activity_types" value="outgoing" />
             I feel like getting out of the house today
           </label>
+          </Box>
         </div>
-        <ErrorMessage name="requested_day_periods" />
-        <button type="submit" disabled={isSubmitting}>
-          Submit
-        </button>
+        <Box sx={{
+          my: 1,
+        }}>
+          <ErrorMessage name="requested_day_periods" />
+        </Box>
+        <Box>
+          <ErrorMessage name="requested_activity_types" />
+        </Box>
+        <Box sx={{
+          my: 1,
+        }}>
+          <Button color="primary" variant="contained" type="submit">
+            Submit
+          </Button>
+        </Box>
       </Form>
     )}
-  </Formik>
+    </Formik></Container>
 }
 
 
