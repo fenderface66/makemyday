@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Formik, Form, Field, ErrorMessage, FormikProps} from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Cookies from "js-cookie";
 import api from "../../api";
 import {User} from "../../App";
@@ -7,9 +7,13 @@ import {Redirect, useHistory} from 'react-router-dom'
 import { Button, Container, Box } from '@mui/material';
 import {Checkbox} from "formik-mui";
 
+export type RequestedDayPeriods = ("morning" | "afternoon" | "early_evening" | "late_evening")[];
+
+export type RequestedActivityTypes = ("active" | "social" | "amusement" | "self_improvement" | "outgoing")[]
+
 type Values = {
-  requested_day_periods: ("morning" | "afternoon" | "early_evening" | "late_evening")[]
-  requested_activity_types: ("active" | "social" | "amusement" | "self_improvement" | "outgoing")[]
+  requested_day_periods: RequestedDayPeriods;
+  requested_activity_types: RequestedActivityTypes;
 }
 
 export enum Status {
@@ -57,7 +61,7 @@ const DayConfigForm = () => {
       });
       if (res.status === 201) {
         const schedule = await res.json();
-        history.push('/schedule', {schedule});
+        history.push('/schedule', {schedule, ...values});
       }
       setSubmitting(false);
       resetForm();

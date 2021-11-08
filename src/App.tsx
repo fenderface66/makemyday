@@ -10,6 +10,7 @@ import DayConfigForm from "./pages/DayConfigForm";
 import LoginForm from './pages/LoginForm/LoginForm';
 import Preferences from "./pages/Interests"
 import PrivateRoute from "./components/PrivateRoute";
+import Complete from "./pages/Complete";
 import Schedule from "./pages/Schedule";
 
 export type User = {
@@ -39,6 +40,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path="/schedule">
             <Schedule />
+          </PrivateRoute>
+          <PrivateRoute path="/complete">
+            <Complete />
           </PrivateRoute>
         </Switch>
       </Router>
