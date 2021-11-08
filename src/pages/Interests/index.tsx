@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Field, Form, Formik, FormikProps} from "formik";
+import {ErrorMessage, Field, Form, Formik, FormikProps} from "formik";
 import styled from 'styled-components';
 import Masonry from 'react-masonry-component';
 import { css } from "@emotion/react";
@@ -105,6 +105,13 @@ const Interests = () => {
           initialValues={{
             interest_scenes: [],
           }}
+          validate={(values: Values) => {
+            const errors: any = {};
+            if (values.interest_scenes.length < 8) {
+              errors.interest_scenes = "You must select at least 8 interest images"
+            }
+            return errors;
+          }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
             const uniqueInterests = [...new Set(interests)];
@@ -140,6 +147,11 @@ const Interests = () => {
                   </Masonry>
               </MasonryContainer>
               <Box>
+                <ErrorMessage name="interest_scenes" />
+              </Box>
+              <Box sx={{
+                my: 2,
+              }}>
                 <Button size="large" color="primary" variant="contained" type="submit"  disabled={isSubmitting}>
                   Submit
                 </Button>

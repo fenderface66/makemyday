@@ -31,7 +31,6 @@ const DayConfigForm = () => {
     <Container><Formik
     initialValues={{ "requested_day_periods": [], "requested_activity_types": [] }}
     validate={(values: Values) => {
-      console.log(values);
       const errors: any = {};
       if (values.requested_day_periods.length === 0) {
         errors.requested_day_periods = "You must select at least one period in the day in which you'd like events to be generated"
