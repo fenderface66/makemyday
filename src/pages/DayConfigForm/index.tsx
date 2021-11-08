@@ -3,7 +3,7 @@ import {Formik, Form, Field, ErrorMessage, FormikProps} from 'formik';
 import Cookies from "js-cookie";
 import api from "../../api";
 import {User} from "../../App";
-import {Redirect} from 'react-router-dom'
+import {Redirect, useHistory} from 'react-router-dom'
 import { Button, Container, Box } from '@mui/material';
 import {Checkbox} from "formik-mui";
 
@@ -18,6 +18,7 @@ export enum Status {
 }
 
 const DayConfigForm = () => {
+  let history = useHistory();
   const [interestsStatus, setInterestsStatus] = useState<Status>(Status.HAS_INTERESTS);
   useEffect(() => {
     const fetchInterestsStatus = async () => {
@@ -48,12 +49,16 @@ const DayConfigForm = () => {
       }
 
       const user: User = JSON.parse(userCookie as string)
-      await api(`${process.env.REACT_APP_API_URL}/make-my-day`, {
+      const res = await api(`${process.env.REACT_APP_API_URL}/schedule/create`, {
         access_token: user.accessToken,
         ...values
       }, {
         method: 'POST',
       });
+      if (res.status === 201) {
+        const schedule = await res.json();
+        history.push('/schedule', {schedule});
+      }
       setSubmitting(false);
       resetForm();
     }}

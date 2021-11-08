@@ -10,6 +10,7 @@ import DayConfigForm from "./pages/DayConfigForm";
 import LoginForm from './pages/LoginForm/LoginForm';
 import Preferences from "./pages/Interests"
 import PrivateRoute from "./components/PrivateRoute";
+import Schedule from "./pages/Schedule";
 
 export type User = {
   accessToken: string;
@@ -36,10 +37,14 @@ function App() {
           <PrivateRoute path="/interests">
             <Preferences />
           </PrivateRoute>
+          <PrivateRoute path="/schedule">
+            <Schedule />
+          </PrivateRoute>
         </Switch>
       </Router>
     </CookiesProvider>
   );
 }
+
 
 export default App;

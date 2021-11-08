@@ -30,7 +30,6 @@ const PrivateRoute = ({...props}) => {
       }
     })();
   }, [])
-  console.log(props);
   return isAuthenticated
     ? <Route { ...props } />
     : <Redirect to="/login" />
