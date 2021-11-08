@@ -11,7 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 
 import * as api from '../api';
 
-jest.mock('./api', () => ({
+jest.mock('../api', () => ({
   __esModule: true,
   default: jest.fn(() => ({
     status: 401
