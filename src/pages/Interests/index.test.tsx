@@ -9,30 +9,52 @@ jest.mock('js-cookie', () => ({
   get: jest.fn()
 }));
 
-jest.mock('../../cookie.util', () => ({
-  getUserFromCookie: () => ({
-    accessToken: '123456789'
-  })
+jest.mock('react-router', () => ({
+  useHistory: () => ({
+    push: jest.fn(),
+  }),
 }));
 
-
 describe('<Interests />', function () {
-
   describe('When form is submitted', () => {
-    it('should send the interests to the interests endpoint on the api', async () => {
-      const apiSpy = jest.spyOn(api, 'default');
-      render(<Interests />)
-      userEvent.click(screen.getByDisplayValue('book_and_glasses'))
-      userEvent.click(screen.getByRole('button', {name: /submit/i}))
-
-      await waitFor(() =>
-        expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/interests`, {
-          access_token: '123456789',
-          interests: expect.arrayContaining(['reading', 'learning'])
-        }, {
-          method: 'POST'
-        }))
-    });
+    describe('When less than 8 interests have been selected', () => {
+      let apiSpy: jest.SpyInstance;
+      beforeEach(() => {
+        apiSpy = jest.spyOn(api, 'default');
+        const { getByTestId } = render(<Interests />);
+        userEvent.click(screen.getByDisplayValue('book_and_glasses'))
+        userEvent.click(getByTestId('interests-submit'));
+      })
+      it('should not send interests if less than 8 have been selected', async () => {
+        await waitFor(() =>
+          expect(apiSpy).not.toHaveBeenCalled())
+      });
+    })
+    describe('When 8 interests have been selected', () => {
+      let apiSpy: jest.SpyInstance;
+      beforeEach(async () => {
+        apiSpy = jest.spyOn(api, 'default');
+        const { getByTestId } = render(<Interests />);
+        userEvent.click(screen.getByDisplayValue('book_and_glasses'))
+        userEvent.click(screen.getByDisplayValue('beer_being_poured'))
+        userEvent.click(screen.getByDisplayValue('carnival_ride'))
+        userEvent.click(screen.getByDisplayValue('cheers_with_coffee'))
+        userEvent.click(screen.getByDisplayValue('coding_on_tidy_desk'))
+        userEvent.click(screen.getByDisplayValue('collection_of_craft_items'))
+        userEvent.click(screen.getByDisplayValue('gadgets'))
+        userEvent.click(screen.getByDisplayValue('golf'))
+        userEvent.click(screen.getByDisplayValue('hiking_outside'))
+        userEvent.click(getByTestId('interests-submit'));
+      })
+      it('should send the interests to the interests endpoint on the api', async () => {
+        await waitFor(() => {
+          expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/interests`, {
+            interests: expect.arrayContaining(['reading', 'learning', 'alcohol', 'beer', 'adrenaline', 'outgoing', 'amusement', 'coffee', 'socialising', 'coding', 'working', 'tech', 'knitting', 'photography', 'art', 'creative_activities', 'style', 'golf', 'sport', 'hiking'])
+          }, {
+            method: 'POST'
+          })
+        });
+      });
+    })
   })
-
 });

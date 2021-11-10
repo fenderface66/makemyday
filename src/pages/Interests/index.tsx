@@ -6,7 +6,6 @@ import { css } from "@emotion/react";
 import images, {Image} from './images';
 import checkmark from "../../assets/checkmark.png"
 import ClipLoader from "react-spinners/ClipLoader";
-import { getUserFromCookie } from "../../cookie.util";
 import api from "../../api";
 import {interestSceneMap} from "./interestSceneMap";
 import {useHistory} from "react-router";
@@ -115,9 +114,7 @@ const Interests = () => {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
             const uniqueInterests = [...new Set(interests)];
-            const user = getUserFromCookie();
             const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
-              access_token: user.accessToken,
               interests: uniqueInterests,
             }, {
               method: 'POST',
@@ -152,7 +149,7 @@ const Interests = () => {
               <Box sx={{
                 my: 2,
               }}>
-                <Button size="large" color="primary" variant="contained" type="submit"  disabled={isSubmitting}>
+                <Button data-testid="interests-submit" role="button" size="large" color="primary" variant="contained" type="submit"  disabled={isSubmitting}>
                   Submit
                 </Button>
               </Box>
