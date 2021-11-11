@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { LoadingButton } from '@mui/lab';
-import { useLocation } from "react-router-dom";
 import api from "../../api";
 type LocationState = {
   schedule: ScheduleActivity[];
@@ -41,7 +40,7 @@ const Schedule = () => {
         <>
           <h1>Schedule for {dayTimeFormat.format(new Date(schedule[0].startDateTime))}</h1>
           {schedule.map(scheduleActivity => (
-            <Box sx={{
+            <Box key={scheduleActivity.name} sx={{
               my: 2
             }}>
               <h2>{scheduleActivity.name}</h2>
@@ -50,7 +49,7 @@ const Schedule = () => {
           ))}
           <Grid container spacing={2}>
             <Grid item>
-              <LoadingButton loading={loading} onClick={async () => {
+              <LoadingButton data-testid="confirm_button" loading={loading} onClick={async () => {
                 setLoading(true);
                 const res = await api(`${process.env.REACT_APP_API_URL}/schedule/confirm`, schedule, {
                   method: 'POST',
@@ -64,7 +63,7 @@ const Schedule = () => {
               </LoadingButton>
             </Grid>
             <Grid item>
-              <LoadingButton loading={loading} onClick={async () => {
+              <LoadingButton data-testid="recreate_button" loading={loading} onClick={async () => {
                 setLoading(true);
                 const res = await api(`${process.env.REACT_APP_API_URL}/schedule/create`, {
                   requested_day_periods: location.state.requested_day_periods,

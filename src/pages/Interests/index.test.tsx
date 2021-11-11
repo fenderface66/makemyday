@@ -1,13 +1,7 @@
 import React from 'react';
 import {render, fireEvent, waitFor} from '@testing-library/react'
 import Interests from "./";
-
 import * as api from '../../api';
-
-jest.mock('../../api', () => ({
-  __esModule: true,
-  default: jest.fn(),
-}))
 
 jest.mock('js-cookie', () => ({
   get: () => JSON.stringify({
@@ -24,13 +18,6 @@ jest.mock('react-router', () => ({
 describe('<Interests />', function () {
   beforeAll(() => {
     jest.setTimeout(30000);
-  })
-  beforeEach(async () => {
-    (api.default as jest.Mock).mockImplementation(() => ({
-      status: 201,
-      body: {},
-      json: () => ({})
-    }));
   })
   describe('When form is submitted', () => {
     describe('When less than 8 interests have been selected', () => {

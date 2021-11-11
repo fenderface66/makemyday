@@ -5,11 +5,6 @@ import {createMemoryHistory, MemoryHistory} from "history";
 import { Router } from "react-router";
 import {render, waitFor} from "@testing-library/react";
 
-jest.mock('../../api', () => ({
-  __esModule: true,
-  default: jest.fn(),
-}))
-
 const renderComponentWithRouting = () => {
   const history = createMemoryHistory({ initialEntries: ['/'] });
   return {
