@@ -1,9 +1,7 @@
 import React from 'react';
 import {Route, Redirect, useHistory} from 'react-router-dom'
 import {useEffect, useState} from "react";
-import Cookies from "js-cookie";
 import api from "../api";
-import {User} from "../App";
 
 const PrivateRoute = ({...props}) => {
   let history = useHistory();

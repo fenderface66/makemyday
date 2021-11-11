@@ -38,8 +38,8 @@ const DayConfigForm = () => {
       if (values.requested_day_periods.length === 0) {
         errors.requested_day_periods = "You must select at least one period in the day in which you'd like events to be generated"
       }
-      if (values.requested_activity_types.length === 0) {
-        errors.requested_activity_types = "You must select at least one activity type"
+      if (values.requested_activity_types.length < 3) {
+        errors.requested_activity_types = "You must select at least 3 activity types"
       }
       return errors;
     }}
