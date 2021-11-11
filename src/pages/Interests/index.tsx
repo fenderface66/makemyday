@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {ErrorMessage, Field, Form, Formik, FormikProps} from "formik";
+import flatten from 'lodash.flatten';
 import styled from 'styled-components';
 import Masonry from 'react-masonry-component';
 import { css } from "@emotion/react";
@@ -114,7 +115,7 @@ const Interests = () => {
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             console.log(values);
             console.log(values.interest_scenes.map(scene => interestSceneMap[scene]));
-            const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
+            const interests = flatten(values.interest_scenes.map(scene => interestSceneMap[scene]));
             console.log(interests);
             const uniqueInterests = [...new Set(interests)];
             console.log(uniqueInterests);
