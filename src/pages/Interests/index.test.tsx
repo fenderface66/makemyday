@@ -28,7 +28,6 @@ describe('<Interests />', function () {
 
   })
   beforeEach(async () => {
-    console.log('RUNNING BEFORE EACH');
     (api.default as jest.Mock).mockImplementation(() => ({
       status: 201,
       body: {},
@@ -37,7 +36,6 @@ describe('<Interests />', function () {
   })
   describe('When form is submitted', () => {
     describe('When less than 8 interests have been selected', () => {
-      console.log('RUNNING 1ST TEST');
       it('should not send interests if less than 8 have been selected', async () => {
         const apiSpy = jest.spyOn(api, 'default');
         const { findByTestId } = render(<Interests />);
@@ -52,7 +50,6 @@ describe('<Interests />', function () {
     })
     describe('When 8 interests have been selected', () => {
       it('should send the interests to the interests endpoint on the api', async () => {
-        console.log('RUNNING 2ND TEST');
         const apiSpy = jest.spyOn(api, 'default');
         const { findByTestId } = render(<Interests />);
         const bookImage = await findByTestId('image_book_and_glasses');

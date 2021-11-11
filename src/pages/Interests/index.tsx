@@ -113,12 +113,8 @@ const Interests = () => {
             return errors;
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            console.log(process.version);
             const interests = flatten(values.interest_scenes.map(scene => interestSceneMap[scene]));
             const uniqueInterests = [...new Set(interests)];
-
-            console.log(uniqueInterests);
-            console.log(api);
             const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
               interests: uniqueInterests,
             }, {
