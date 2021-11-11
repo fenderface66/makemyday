@@ -54,7 +54,6 @@ describe('<Interests />', function () {
       it('should send the interests to the interests endpoint on the api', async () => {
         console.log('RUNNING 2ND TEST');
         const apiSpy = jest.spyOn(api, 'default');
-        // @ts-ignore
         const { findByTestId } = render(<Interests />);
         const bookImage = await findByTestId('image_book_and_glasses');
         const beerImage = await findByTestId('image_beer_being_poured');
