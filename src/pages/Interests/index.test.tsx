@@ -1,6 +1,5 @@
 import React from 'react';
 import {render, fireEvent, waitFor} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import Interests from "./";
 
 import * as api from '../../api';
@@ -46,7 +45,7 @@ describe('<Interests />', function () {
         apiSpy.mockReturnValue(Promise.resolve({
           status: 201,
         }));
-        const { findByTestId } = render(<Interests />);
+        const { findByTestId, unmount } = render(<Interests />);
         fireEvent.click(await findByTestId('image_book_and_glasses'))
         fireEvent.click(await findByTestId('image_beer_being_poured'))
         fireEvent.click(await findByTestId('image_carnival_ride'))
@@ -57,6 +56,7 @@ describe('<Interests />', function () {
         fireEvent.click(await findByTestId('image_golf'))
         fireEvent.click(await findByTestId('image_hiking_outside'))
         fireEvent.click(await findByTestId('interests-submit'));
+        unmount();
         await waitFor(async () => {
           expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/interests`, {
             interests: expect.arrayContaining(['reading', 'learning', 'alcohol', 'beer', 'adrenaline', 'outgoing', 'amusement', 'coffee', 'socialising', 'coding', 'working', 'tech', 'knitting', 'photography', 'art', 'creative_activities', 'style', 'golf', 'sport', 'hiking'])
