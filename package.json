@@ -35,10 +35,6 @@
     "typescript": "^4.3.2",
     "web-vitals": "^1.0.1"
   },
-  "jest": {
-    "verbose": true,
-    "testEnvironment": "jest-environment-jsdom-sixteen"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
