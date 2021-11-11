@@ -49,32 +49,6 @@ const renderComponentWithRouting = () => {
 describe('<PrivateRoute />', function () {
   let testHistory: History | undefined;
   let testLocation: Location | undefined;
-  it('should check to see if a user cookie exists', async () => {
-    const getCookieSpy = jest.spyOn(Cookies, 'get');
-    await act(async () => {
-      renderer.create(
-        <MemoryRouter>
-          <Switch>
-            <PrivateRoute />
-          </Switch>
-        </MemoryRouter>
-        );
-    });
-    expect(getCookieSpy).toHaveBeenCalledWith('user');
-  });
-  describe('When the cookie is not present', () => {
-    it('redirects to the login page when a cookie is not present', async () => {
-      await act(async () => {
-        const { renderedHistory, renderedLocation } = await renderComponentWithRouting();
-        testHistory = renderedHistory;
-        testLocation = renderedLocation;
-      });
-      if (!testLocation) {
-        return
-      }
-      expect((testLocation as Location).pathname).toBe("/login");
-    });
-  })
   describe('when the cookie is present', () => {
     beforeEach(() => {
       (Cookies.get as jest.Mock).mockImplementation(() => JSON.stringify({
@@ -89,11 +63,7 @@ describe('<PrivateRoute />', function () {
       await act(async () => {
         await renderComponentWithRouting();
       });
-      expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/google/authenticate`, {
-        token: '123456789',
-      }, {
-        method: 'POST'
-      })
+      expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/google/tokenInfo`)
     })
     describe('when the api identifies the token as invalid',  () => {
       beforeEach(() => {
