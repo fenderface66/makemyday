@@ -14,7 +14,9 @@ jest.mock('../../api', () => ({
 }));
 
 jest.mock('js-cookie', () => ({
-  get: jest.fn()
+  get: jest.fn(() => ({
+    accessToken: '123456789'
+  }))
 }));
 
 jest.mock('react-router', () => ({
