@@ -44,6 +44,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^3.9.2",
     "eslint-webpack-plugin": "^2.5.2",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
     "file-loader": "6.1.1",
     "formik": "^2.2.9",
     "formik-mui": "^4.0.0-alpha.3",
@@ -93,7 +95,8 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "devstart": "node scripts/start.js",
+    "start": "node server.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jest-environment-jsdom-sixteen"
   },
