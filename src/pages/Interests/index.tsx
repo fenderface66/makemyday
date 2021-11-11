@@ -115,7 +115,9 @@ const Interests = () => {
             console.log(values);
             console.log(values.interest_scenes.map(scene => interestSceneMap[scene]));
             const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
+            console.log(interests);
             const uniqueInterests = [...new Set(interests)];
+            console.log(uniqueInterests);
             const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
               interests: uniqueInterests,
             }, {
