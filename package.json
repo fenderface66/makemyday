@@ -95,7 +95,7 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "devstart": "node scripts/start.js",
+    "start:dev": "node scripts/start.js",
     "start": "node server.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jest-environment-jsdom-sixteen"
