@@ -5,6 +5,14 @@ import Interests from "./";
 
 import * as api from '../../api';
 
+
+jest.mock('../../api', () => ({
+  __esModule: true, // this property makes it work
+  default: jest.fn(() => Promise.resolve(() => ({
+    status: 201,
+  }))),
+}));
+
 jest.mock('js-cookie', () => ({
   get: jest.fn()
 }));
@@ -18,36 +26,35 @@ jest.mock('react-router', () => ({
 describe('<Interests />', function () {
   describe('When form is submitted', () => {
     describe('When less than 8 interests have been selected', () => {
-      let apiSpy: jest.SpyInstance;
-      beforeEach(() => {
-        apiSpy = jest.spyOn(api, 'default');
-        const { getByTestId } = render(<Interests />);
-        userEvent.click(screen.getByDisplayValue('book_and_glasses'))
-        userEvent.click(getByTestId('interests-submit'));
-      })
       it('should not send interests if less than 8 have been selected', async () => {
-        await waitFor(() =>
-          expect(apiSpy).not.toHaveBeenCalled())
+        const apiSpy = jest.spyOn(api, 'default');
+        const { findByTestId } = render(<Interests />);
+        await waitFor(async () => {
+          userEvent.click(await screen.findByDisplayValue('book_and_glasses'))
+          userEvent.click(await findByTestId('interests-submit'));
+          expect(apiSpy).not.toHaveBeenCalled()
+        })
       });
     })
     describe('When 8 interests have been selected', () => {
-      let apiSpy: jest.SpyInstance;
-      beforeEach(async () => {
-        apiSpy = jest.spyOn(api, 'default');
-        const { getByTestId } = render(<Interests />);
-        userEvent.click(screen.getByDisplayValue('book_and_glasses'))
-        userEvent.click(screen.getByDisplayValue('beer_being_poured'))
-        userEvent.click(screen.getByDisplayValue('carnival_ride'))
-        userEvent.click(screen.getByDisplayValue('cheers_with_coffee'))
-        userEvent.click(screen.getByDisplayValue('coding_on_tidy_desk'))
-        userEvent.click(screen.getByDisplayValue('collection_of_craft_items'))
-        userEvent.click(screen.getByDisplayValue('gadgets'))
-        userEvent.click(screen.getByDisplayValue('golf'))
-        userEvent.click(screen.getByDisplayValue('hiking_outside'))
-        userEvent.click(getByTestId('interests-submit'));
-      })
       it('should send the interests to the interests endpoint on the api', async () => {
-        await waitFor(() => {
+        const apiSpy = jest.spyOn(api, 'default');
+        // @ts-ignore
+        apiSpy.mockReturnValue(Promise.resolve({
+          status: 201,
+        }));
+        const { findByTestId } = render(<Interests />);
+        await waitFor(async () => {
+          userEvent.click(await screen.findByDisplayValue('book_and_glasses'))
+          userEvent.click(await screen.findByDisplayValue('beer_being_poured'))
+          userEvent.click(await screen.findByDisplayValue('carnival_ride'))
+          userEvent.click(await screen.findByDisplayValue('cheers_with_coffee'))
+          userEvent.click(await screen.findByDisplayValue('coding_on_tidy_desk'))
+          userEvent.click(await screen.findByDisplayValue('collection_of_craft_items'))
+          userEvent.click(await screen.findByDisplayValue('gadgets'))
+          userEvent.click(await screen.findByDisplayValue('golf'))
+          userEvent.click(await screen.findByDisplayValue('hiking_outside'))
+          userEvent.click(await findByTestId('interests-submit'));
           expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/interests`, {
             interests: expect.arrayContaining(['reading', 'learning', 'alcohol', 'beer', 'adrenaline', 'outgoing', 'amusement', 'coffee', 'socialising', 'coding', 'working', 'tech', 'knitting', 'photography', 'art', 'creative_activities', 'style', 'golf', 'sport', 'hiking'])
           }, {
