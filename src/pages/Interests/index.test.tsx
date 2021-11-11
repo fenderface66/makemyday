@@ -54,7 +54,7 @@ describe('<Interests />', function () {
       it('should send the interests to the interests endpoint on the api', async () => {
         console.log('RUNNING 2ND TEST');
         const apiSpy = jest.spyOn(api, 'default');
-        const { findByTestId, rerender } = render(<Interests />);
+        const { findByTestId } = render(<Interests />);
         const bookImage = await findByTestId('image_book_and_glasses');
         const beerImage = await findByTestId('image_beer_being_poured');
         const carnivalImage = await findByTestId('image_carnival_ride');
@@ -75,7 +75,6 @@ describe('<Interests />', function () {
         fireEvent.click(golfImage)
         fireEvent.click(hikingImage)
         fireEvent.click(interestsSubmitButton);
-        rerender(<Interests />);
         await waitFor(async () => {
           expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/interests`, {
             interests: expect.arrayContaining(['reading', 'learning', 'alcohol', 'beer', 'adrenaline', 'outgoing', 'amusement', 'coffee', 'socialising', 'coding', 'working', 'tech', 'knitting', 'photography', 'art', 'creative_activities', 'style', 'golf', 'sport', 'hiking'])
