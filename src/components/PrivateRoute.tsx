@@ -11,19 +11,7 @@ const PrivateRoute = ({...props}) => {
   useEffect( () => {
     (async function() {
       try {
-        const userCookie = Cookies.get('user');
-        if (!userCookie) {
-          return history.push('/login');
-        }
-        const user: User = JSON.parse(userCookie as string);
-        const response = await api(`${process.env.REACT_APP_API_URL}/google/authenticate`, {
-          token: user.accessToken,
-        }, {
-          method: 'POST'
-        })
-        if (response.status !== 201) {
-          return history.push('/login');
-        }
+        await api(`${process.env.REACT_APP_API_URL}/google/tokenInfo`);
         return setIsAuthenticated(true);
       } catch (e) {
         console.error(e);

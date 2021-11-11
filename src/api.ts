@@ -1,4 +1,5 @@
 import {getUserFromCookie} from "./cookie.util";
+import history from "./history";
 
 const api = async (url = '', data = {}, options: Partial<Request> = {}) => {
   const user = getUserFromCookie();
@@ -15,6 +16,10 @@ const api = async (url = '', data = {}, options: Partial<Request> = {}) => {
     referrerPolicy: options.referrerPolicy ? options.referrerPolicy : 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: method !== 'GET' ? JSON.stringify(data) : undefined,
   });
+  if (response.status === 401) {
+    console.log('Unauthorised!');
+    history.push('/login');
+  }
   return response;
 }
 

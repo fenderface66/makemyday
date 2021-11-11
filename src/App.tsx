@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route, Redirect,
 } from "react-router-dom";
@@ -12,6 +12,7 @@ import Preferences from "./pages/Interests"
 import PrivateRoute from "./components/PrivateRoute";
 import Complete from "./pages/Complete";
 import Schedule from "./pages/Schedule";
+import history from "./history";
 
 export type User = {
   accessToken: string;
@@ -20,7 +21,7 @@ export type User = {
 function App() {
   return (
     <CookiesProvider>
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route path="/login">
             <LoginForm />

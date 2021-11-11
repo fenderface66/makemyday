@@ -14,11 +14,6 @@ const LoginForm = () => {
       ...(response as GoogleLoginResponse).profileObj,
       accessToken: (response as GoogleLoginResponse).accessToken,
     }), { expires: 365 })
-    await api(`${process.env.REACT_APP_API_URL}/google/authenticate`, {
-      token: (response as GoogleLoginResponse).accessToken
-    }, {
-      method: 'POST'
-    })
     history.push('/');
   }
 
