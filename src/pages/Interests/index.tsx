@@ -154,7 +154,7 @@ const Interests = () => {
               <Box sx={{
                 my: 2,
               }}>
-                <Button data-testid="interests-submit" role="button" size="large" color="primary" variant="contained" type="submit"  disabled={isSubmitting}>
+                <Button data-testid="interests_submit" role="button" size="large" color="primary" variant="contained" type="submit"  disabled={isSubmitting}>
                   Submit
                 </Button>
               </Box>
