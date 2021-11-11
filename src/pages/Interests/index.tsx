@@ -124,7 +124,7 @@ const Interests = () => {
               return history.push('/');
             }
             setSubmitting(false);
-            resetForm();
+            // resetForm();
           }}
         >
           {({ isSubmitting, values }: FormikProps<Values>) => (
