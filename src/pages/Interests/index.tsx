@@ -119,10 +119,10 @@ const Interests = () => {
             }, {
               method: 'POST',
             });
-            setSubmitting(false);
             if (res.status === 201) {
               return history.push('/');
             }
+            setSubmitting(false);
             resetForm();
           }}
         >
