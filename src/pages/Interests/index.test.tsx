@@ -57,7 +57,6 @@ describe('<Interests />', function () {
         fireEvent.click(await findByTestId('image_golf'))
         fireEvent.click(await findByTestId('image_hiking_outside'))
         fireEvent.click(await findByTestId('interests-submit'));
-        unmount();
         await waitFor(async () => {
           expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/interests`, {
             interests: expect.arrayContaining(['reading', 'learning', 'alcohol', 'beer', 'adrenaline', 'outgoing', 'amusement', 'coffee', 'socialising', 'coding', 'working', 'tech', 'knitting', 'photography', 'art', 'creative_activities', 'style', 'golf', 'sport', 'hiking'])
