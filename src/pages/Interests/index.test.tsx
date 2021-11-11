@@ -45,6 +45,7 @@ describe('<Interests />', function () {
         apiSpy.mockReturnValue(Promise.resolve({
           status: 201,
         }));
+        jest.setTimeout(30000);
         const { findByTestId, unmount } = render(<Interests />);
         fireEvent.click(await findByTestId('image_book_and_glasses'))
         fireEvent.click(await findByTestId('image_beer_being_poured'))
