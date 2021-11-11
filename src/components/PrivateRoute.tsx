@@ -29,7 +29,7 @@ const PrivateRoute = ({...props}) => {
         console.error(e);
       }
     })();
-  }, [])
+  }, [history])
   return isAuthenticated
     ? <Route { ...props } />
     : <Redirect to="/login" />
