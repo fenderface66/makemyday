@@ -46,15 +46,7 @@ const DayConfigForm = () => {
       return errors;
     }}
     onSubmit={async (values, { setSubmitting, resetForm }) => {
-
-      const userCookie = Cookies.get('user')
-      if (!userCookie) {
-        return console.error('No user cookie found');
-      }
-
-      const user: User = JSON.parse(userCookie as string)
       const res = await api(`${process.env.REACT_APP_API_URL}/schedule/create`, {
-        access_token: user.accessToken,
         ...values
       }, {
         method: 'POST',
