@@ -121,9 +121,9 @@ const Interests = () => {
             }, {
               method: 'POST',
             });
-            if (res.status === 201) {
-              return history.push('/');
-            }
+            // if (res.status === 201) {
+            //   return history.push('/');
+            // }
             // setSubmitting(false);
             // resetForm();
           }}
