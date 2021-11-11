@@ -112,7 +112,6 @@ const Interests = () => {
             return errors;
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            console.log(values);
             const interests = values.interest_scenes.map(scene => interestSceneMap[scene]).flat();
             const uniqueInterests = [...new Set(interests)];
             const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
@@ -121,7 +120,6 @@ const Interests = () => {
               method: 'POST',
             });
             setSubmitting(false);
-            console.log(res.status);
             if (res.status === 201) {
               return history.push('/');
             }
@@ -139,7 +137,7 @@ const Interests = () => {
                     onLayoutComplete={() => setLayoutComplete(true)}
                   >
                     {images.map(image => (
-                      <label key={`label-${image.name}`}>
+                      <label key={`label-${image.name}`} data-testid={`image_${image.name}`}>
                         <SelectableImage key={image.name} image={image} checked={values.interest_scenes.includes(image.name) } />
                       </label>
                     ))}
