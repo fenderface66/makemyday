@@ -4,6 +4,11 @@ import Interests from "./";
 
 import * as api from '../../api';
 
+jest.mock('../../api', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}))
+
 jest.mock('js-cookie', () => ({
   get: () => JSON.stringify({
     accessToken: '123456789'
@@ -19,6 +24,14 @@ jest.mock('react-router', () => ({
 describe('<Interests />', function () {
   beforeAll(() => {
     jest.setTimeout(30000);
+
+  })
+  beforeEach(async () => {
+    (api.default as jest.Mock).mockImplementation(() => ({
+      status: 201,
+      body: {},
+      json: () => ({})
+    }));
   })
   describe('When form is submitted', () => {
     describe('When less than 8 interests have been selected', () => {
@@ -36,12 +49,8 @@ describe('<Interests />', function () {
     })
     describe('When 8 interests have been selected', () => {
       it('should send the interests to the interests endpoint on the api', async () => {
-        jest.useRealTimers()
         const apiSpy = jest.spyOn(api, 'default');
         // @ts-ignore
-        apiSpy.mockReturnValue(Promise.resolve({
-          status: 201,
-        }));
         const { findByTestId } = render(<Interests />);
         const bookImage = await findByTestId('image_book_and_glasses');
         const beerImage = await findByTestId('image_beer_being_poured');
