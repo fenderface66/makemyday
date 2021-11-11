@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import Cookies from "js-cookie";
 import api from "../../api";
-import {User} from "../../App";
 import {Redirect, useHistory} from 'react-router-dom'
 import { Button, Container, Box } from '@mui/material';
 import {Checkbox} from "formik-mui";
