@@ -41,6 +41,21 @@ describe('<Interests />', function () {
           status: 201,
         }));
         const { getByTestId } = render(<Interests />);
+        // const bookImage = await findByTestId('image_book_and_glasses');
+        // const beerImage = await findByTestId('image_beer_being_poured');
+        // const carnivalImage = await findByTestId('image_carnival_ride');
+        // const coffeeImage = await findByTestId('image_cheers_with_coffee');
+        // const codingImage =
+        // fireEvent.click()
+        // fireEvent.click()
+        // fireEvent.click()
+        // fireEvent.click()
+        // fireEvent.click(findByTestId('image_coding_on_tidy_desk'))
+        // fireEvent.click(findByTestId('image_collection_of_craft_items'))
+        // fireEvent.click(findByTestId('image_gadgets'))
+        // fireEvent.click(findByTestId('image_golf'))
+        // fireEvent.click(findByTestId('image_hiking_outside'))
+        // fireEvent.click(findByTestId('interests-submit'));
         fireEvent.click(getByTestId('image_book_and_glasses'))
         fireEvent.click(getByTestId('image_beer_being_poured'))
         fireEvent.click(getByTestId('image_carnival_ride'))
