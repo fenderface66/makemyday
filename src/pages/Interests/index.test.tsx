@@ -23,9 +23,7 @@ jest.mock('react-router', () => ({
 
 describe('<Interests />', function () {
   beforeAll(() => {
-    console.log('RUNNING BEFORE ALL');
     jest.setTimeout(30000);
-
   })
   beforeEach(async () => {
     (api.default as jest.Mock).mockImplementation(() => ({
