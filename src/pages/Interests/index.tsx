@@ -116,11 +116,11 @@ const Interests = () => {
             console.log(process.version);
             const interests = flatten(values.interest_scenes.map(scene => interestSceneMap[scene]));
             const uniqueInterests = [...new Set(interests)];
-            const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
-              interests: uniqueInterests,
-            }, {
-              method: 'POST',
-            });
+            // const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
+            //   interests: uniqueInterests,
+            // }, {
+            //   method: 'POST',
+            // });
             // if (res.status === 201) {
             //   return history.push('/');
             // }
