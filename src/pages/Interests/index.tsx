@@ -118,6 +118,7 @@ const Interests = () => {
             const uniqueInterests = [...new Set(interests)];
 
             console.log(uniqueInterests);
+            console.log(api);
             // const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
             //   interests: uniqueInterests,
             // }, {
