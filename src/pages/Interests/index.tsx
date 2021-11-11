@@ -124,7 +124,7 @@ const Interests = () => {
             if (res.status === 201) {
               return history.push('/');
             }
-            setSubmitting(false);
+            // setSubmitting(false);
             // resetForm();
           }}
         >
