@@ -119,16 +119,16 @@ const Interests = () => {
 
             console.log(uniqueInterests);
             console.log(api);
-            // const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
-            //   interests: uniqueInterests,
-            // }, {
-            //   method: 'POST',
-            // });
-            // if (res.status === 201) {
-            //   return history.push('/');
-            // }
-            // setSubmitting(false);
-            // resetForm();
+            const res = await api(`${process.env.REACT_APP_API_URL}/interests`, {
+              interests: uniqueInterests,
+            }, {
+              method: 'POST',
+            });
+            if (res.status === 201) {
+              return history.push('/');
+            }
+            setSubmitting(false);
+            resetForm();
           }}
         >
           {({ isSubmitting, values }: FormikProps<Values>) => (
