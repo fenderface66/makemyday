@@ -4,14 +4,6 @@ import Interests from "./";
 
 import * as api from '../../api';
 
-
-jest.mock('../../api', () => ({
-  __esModule: true, // this property makes it work
-  default: jest.fn(() => Promise.resolve(() => ({
-    status: 201,
-  }))),
-}));
-
 jest.mock('js-cookie', () => ({
   get: () => JSON.stringify({
     accessToken: '123456789'
@@ -29,9 +21,9 @@ describe('<Interests />', function () {
     describe('When less than 8 interests have been selected', () => {
       it('should not send interests if less than 8 have been selected', async () => {
         const apiSpy = jest.spyOn(api, 'default');
-        const { findByTestId } = render(<Interests />);
-        fireEvent.click(await findByTestId('image_book_and_glasses'))
-        fireEvent.click(await findByTestId('interests-submit'));
+        const { getByTestId } = render(<Interests />);
+        fireEvent.click(getByTestId('image_book_and_glasses'))
+        fireEvent.click(getByTestId('interests-submit'));
         await waitFor(async () => {
           expect(apiSpy).not.toHaveBeenCalled()
         })
@@ -46,17 +38,17 @@ describe('<Interests />', function () {
           status: 201,
         }));
         jest.setTimeout(30000);
-        const { findByTestId, unmount } = render(<Interests />);
-        fireEvent.click(await findByTestId('image_book_and_glasses'))
-        fireEvent.click(await findByTestId('image_beer_being_poured'))
-        fireEvent.click(await findByTestId('image_carnival_ride'))
-        fireEvent.click(await findByTestId('image_cheers_with_coffee'))
-        fireEvent.click(await findByTestId('image_coding_on_tidy_desk'))
-        fireEvent.click(await findByTestId('image_collection_of_craft_items'))
-        fireEvent.click(await findByTestId('image_gadgets'))
-        fireEvent.click(await findByTestId('image_golf'))
-        fireEvent.click(await findByTestId('image_hiking_outside'))
-        fireEvent.click(await findByTestId('interests-submit'));
+        const { getByTestId } = render(<Interests />);
+        fireEvent.click(getByTestId('image_book_and_glasses'))
+        fireEvent.click(getByTestId('image_beer_being_poured'))
+        fireEvent.click(getByTestId('image_carnival_ride'))
+        fireEvent.click(getByTestId('image_cheers_with_coffee'))
+        fireEvent.click(getByTestId('image_coding_on_tidy_desk'))
+        fireEvent.click(getByTestId('image_collection_of_craft_items'))
+        fireEvent.click(getByTestId('image_gadgets'))
+        fireEvent.click(getByTestId('image_golf'))
+        fireEvent.click(getByTestId('image_hiking_outside'))
+        fireEvent.click(getByTestId('interests-submit'));
         await waitFor(async () => {
           expect(apiSpy).toHaveBeenCalledWith(`${process.env.REACT_APP_API_URL}/interests`, {
             interests: expect.arrayContaining(['reading', 'learning', 'alcohol', 'beer', 'adrenaline', 'outgoing', 'amusement', 'coffee', 'socialising', 'coding', 'working', 'tech', 'knitting', 'photography', 'art', 'creative_activities', 'style', 'golf', 'sport', 'hiking'])
