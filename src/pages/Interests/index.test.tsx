@@ -17,6 +17,9 @@ jest.mock('react-router', () => ({
 }));
 
 describe('<Interests />', function () {
+  beforeAll(() => {
+    jest.setTimeout(30000);
+  })
   describe('When form is submitted', () => {
     describe('When less than 8 interests have been selected', () => {
       it('should not send interests if less than 8 have been selected', async () => {
@@ -37,7 +40,6 @@ describe('<Interests />', function () {
         apiSpy.mockReturnValue(Promise.resolve({
           status: 201,
         }));
-        jest.setTimeout(30000);
         const { getByTestId } = render(<Interests />);
         fireEvent.click(getByTestId('image_book_and_glasses'))
         fireEvent.click(getByTestId('image_beer_being_poured'))
