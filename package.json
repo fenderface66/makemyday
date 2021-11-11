@@ -35,10 +35,14 @@
     "typescript": "^4.3.2",
     "web-vitals": "^1.0.1"
   },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "jest-environment-jsdom-sixteen"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,6 +65,7 @@
   },
   "devDependencies": {
     "@types/react-test-renderer": "^17.0.1",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
     "react-test-renderer": "^17.0.2"
   }
 }
