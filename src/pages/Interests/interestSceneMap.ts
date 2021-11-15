@@ -40,7 +40,7 @@ export type interest =
   | 'shuttlecock'
   | 'racket_sports'
   | 'skateboarding'
-  | 'action_sport'
+  | 'extreme_sport'
   | 'snorkling'
   | 'water_sports'
   | 'intellectualism'
@@ -95,7 +95,7 @@ export const interestSceneMap: {
   'pottery': ['pottery', 'art'],
   'producing_electronic_music': ['music_production', 'electronic_music', 'music'],
   'shuttlecock': ['shuttlecock', 'racket_sports', 'sport'],
-  'skateboarding': ['skateboarding', 'action_sport'],
+  'skateboarding': ['skateboarding', 'extreme_sport'],
   'snorkling': ['snorkling', 'water_sports'],
   'stack_of_books': ['reading', 'intellectualism'],
   'stormtrooper': ['star_wars', 'nerd_culture'],
