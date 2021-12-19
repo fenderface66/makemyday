@@ -13,14 +13,11 @@ const TodoistLoginButton = () => {
   useEffect(() => {
     const fetchAccessToken = async () => {
       const user = getUserFromCookie();
-      console.log(user);
       if (user.todoistAccessToken) {
         return setIntegrated(true);
       }
       const code = query.get('code');
       const state = query.get('state');
-      console.log(code);
-      console.log(state);
       if (code && state === process.env.REACT_APP_TODOIST_STATE_SECRET) {
         const res = await api('https://todoist.com/oauth/access_token', {
           client_id: process.env.REACT_APP_TODOIST_CLIENT_ID,
@@ -30,7 +27,6 @@ const TodoistLoginButton = () => {
           method: 'POST'
         });
         const data = await res.json();
-        console.log(data);
         if (data.access_token) {
           Cookies.set('user', JSON.stringify({
             ...user,
