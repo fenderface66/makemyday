@@ -5,6 +5,8 @@ import {Redirect, useHistory} from 'react-router-dom'
 import { Button, Container, Box } from '@mui/material';
 import {Checkbox} from "formik-mui";
 
+import TodoistLoginButton from "../../components/TodoistLoginButton";
+
 export type RequestedDayPeriods = ("morning" | "afternoon" | "early_evening" | "late_evening")[];
 
 export type RequestedActivityTypes = ("active" | "social" | "amusement" | "self_improvement" | "outgoing")[]
@@ -136,7 +138,9 @@ const DayConfigForm = () => {
         </Box>
       </Form>
     )}
-    </Formik></Container>
+    </Formik>
+    <TodoistLoginButton />
+    </Container>
 }
 
 

@@ -2,7 +2,6 @@ import React from 'react';
 import GoogleLogin, {GoogleLoginResponse, GoogleLoginResponseOffline} from "react-google-login";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
-import api from "../../api";
 
 const LoginForm = () => {
   let history = useHistory();
