@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { LoadingButton } from '@mui/lab';
 import api from "../../api";
+import {getUserFromCookie} from "../../cookie.util";
 type LocationState = {
   schedule: ScheduleActivity[];
   requested_day_periods: ("morning" | "afternoon" | "early_evening" | "late_evening")[]
@@ -22,6 +23,7 @@ const Schedule = () => {
   const location = useLocation<LocationState>();
   const [schedule, setSchedule] = useState<ScheduleActivity[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const user = getUserFromCookie();
   const activityTimeFormat = new Intl.DateTimeFormat('en', {
     minute: 'numeric',
     hour: 'numeric',
@@ -59,9 +61,26 @@ const Schedule = () => {
                   history.push('/complete');
                 }
               }} size="large" color="primary" variant="contained" type="submit">
-                Confirm
+                Confirm as schedule
               </LoadingButton>
             </Grid>
+            {user.todoistAccessToken ? <Grid item>
+              <LoadingButton data-testid="confirm_button_todoist" loading={loading} onClick={async () => {
+                setLoading(true);
+                const res = await api(`${process.env.REACT_APP_API_URL}/todoist/create`, {
+                  schedule,
+                  todoist_access_token: user.todoistAccessToken
+                }, {
+                  method: 'POST',
+                });
+                setLoading(false);
+                if (res.status === 201) {
+                  history.push('/complete');
+                }
+              }} size="large" color="primary" variant="contained" type="submit">
+                Confirm as to-do list
+              </LoadingButton>
+            </Grid> : null}
             <Grid item>
               <LoadingButton data-testid="recreate_button" loading={loading} onClick={async () => {
                 setLoading(true);
