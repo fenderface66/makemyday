@@ -38,10 +38,10 @@ const TodoistLoginButton = () => {
     }
     fetchAccessToken().then();
   })
-  return integrated ? <p>Todoist is integrated</p> : (
+  return integrated ? <p data-testid="todoist-integrated-message">Todoist is integrated</p> : (
     <LoadingButton data-testid="confirm_button_todoist" loading={loading} onClick={async () => {
       setLoading(true);
-      window.location.href = `https://todoist.com/oauth/authorize?client_id=${process.env.REACT_APP_TODOIST_CLIENT_ID}&scope=data:read_write,data:delete&state=${process.env.REACT_APP_TODOIST_STATE_SECRET}`
+      window.location.assign( `https://todoist.com/oauth/authorize?client_id=${process.env.REACT_APP_TODOIST_CLIENT_ID}&scope=data:read_write,data:delete&state=${process.env.REACT_APP_TODOIST_STATE_SECRET}`);
       setLoading(false);
     }} size="large" color="primary" variant="contained" type="submit">
       Integrate Todoist
