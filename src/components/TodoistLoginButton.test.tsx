@@ -1,9 +1,11 @@
 import React from 'react';
-import {render} from "@testing-library/react";
+import {render, waitFor} from "@testing-library/react";
 import TodoistLoginButton from "./TodoistLoginButton";
 
 import * as CookieUtils from '../cookie.util'
 import * as api from "../api";
+
+import { getUserFromCookie } from '../cookie.util'
 
 jest.mock('../hooks/useQuery', () => ({
   __esModule: true,
@@ -14,6 +16,10 @@ jest.mock('../hooks/useQuery', () => ({
       })[search]
     }))
 }))
+
+jest.mock('../cookie.util.ts', () => ({
+  getUserFromCookie: jest.fn()
+}));
 
 describe('<TodoistLoginButton />', () => {
   let cookieSpy: jest.SpyInstance;
@@ -28,8 +34,10 @@ describe('<TodoistLoginButton />', () => {
       cookieSpy = jest.spyOn(CookieUtils, 'getUserFromCookie');
       cookieSpy.mockImplementation(() => ({}));
       apiSpy = jest.spyOn(api, 'default');
-      apiSpy.mockResolvedValue(JSON.stringify({
-        access_token: 'test_access_token'
+      apiSpy.mockResolvedValue(({
+        json: () => ({
+          access_token: 'test_access_token'
+        }),
       }))
     })
     it('shows a button for the user to integrate with todoist', () => {
@@ -63,8 +71,10 @@ describe('<TodoistLoginButton />', () => {
       cookieSpy = jest.spyOn(CookieUtils, 'getUserFromCookie');
       cookieSpy.mockImplementation(() => ({}));
       apiSpy = jest.spyOn(api, 'default');
-      apiSpy.mockResolvedValue(JSON.stringify({
-        access_token: 'test_access_token'
+      apiSpy.mockResolvedValue(({
+        json: () => ({
+          access_token: 'test_access_token'
+        }),
       }))
     })
     it('fetches an access token from todoist', () => {
@@ -80,19 +90,28 @@ describe('<TodoistLoginButton />', () => {
   })
   describe('when a user cookie is present with a Todoist access token',  () => {
     beforeEach(() => {
-      cookieSpy = jest.spyOn(CookieUtils, 'getUserFromCookie');
-      cookieSpy.mockImplementation(() => ({
-        todoistAccessToken: 'test_access_token'
-      }));
+      // @ts-ignore
+      getUserFromCookie.mockImplementation(() => ({
+          accessToken: 'test_token',
+          todoistAccessToken: 'test_token'
+      }))
+      apiSpy = jest.spyOn(api, 'default');
+      apiSpy.mockResolvedValue(({
+        json: () => ({
+          access_token: 'test_access_token'
+        }),
+      }))
     })
     it('does not display the integration button', () => {
       const { queryByTestId } = render(<TodoistLoginButton />);
-      expect(queryByTestId('/confirm_button_todoist/i')).toBeNull();
+      expect(queryByTestId('confirm_button_todoist')).toBeNull();
     })
-    it('tells the user that todoist is integrated', () => {
+    it('tells the user that todoist is integrated', async () => {
       const { getByTestId } = render(<TodoistLoginButton />);
-      const integratedMessage = getByTestId('todoist-integrated-message');
-      expect(integratedMessage).toBeDefined();
+      const text = getByTestId('todoist-integrated-message');
+      await waitFor(async () => {
+        expect(text).toBeInTheDocument();
+      })
     })
   })
 })

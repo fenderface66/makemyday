@@ -16,4 +16,10 @@ jest.mock('./api', () => ({
   json: () => ({})
 }))
 
+jest.mock('./cookie.util.ts', () => ({
+  getUserFromCookie: () => ({
+    accessToken: 'test_token'
+  })
+}));
+
 

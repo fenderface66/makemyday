@@ -5,6 +5,12 @@ import {createMemoryHistory, MemoryHistory} from "history";
 import { Router } from "react-router";
 import {render, waitFor} from "@testing-library/react";
 
+jest.mock('../../cookie.util.ts', () => ({
+  getUserFromCookie: () => ({
+    accessToken: 'test_token'
+  })
+}));
+
 const renderComponentWithRouting = () => {
   const history = createMemoryHistory({ initialEntries: ['/'] });
   return {

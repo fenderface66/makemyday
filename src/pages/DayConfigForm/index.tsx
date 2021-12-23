@@ -7,7 +7,6 @@ import {Checkbox} from "formik-mui";
 
 import TodoistLoginButton from "../../components/TodoistLoginButton";
 import Grid from "@mui/material/Grid";
-import {LoadingButton} from "@mui/lab";
 
 export type RequestedDayPeriods = ("morning" | "afternoon" | "early_evening" | "late_evening")[];
 
