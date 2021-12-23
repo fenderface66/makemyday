@@ -5,6 +5,23 @@ import useQuery from "../hooks/useQuery";
 import Cookies from "js-cookie";
 import {getUserFromCookie} from "../cookie.util";
 
+import todoistImg from '../assets/todoist-icon.png';
+import styled from "styled-components";
+import CenteredContainer from "./CenteredContainer";
+
+const TodoistIcon = styled.img`
+  height: 30px;
+  margin-right: 5px;
+`
+
+const Button = styled(LoadingButton)`
+  background-color: #c3362a;
+  padding-left: 10px;
+  padding-right: 10px;
+  &:hover {
+    background-color: #b1362a;
+  }
+`
 
 const TodoistLoginButton = () => {
   const query = useQuery();
@@ -38,14 +55,21 @@ const TodoistLoginButton = () => {
     }
     fetchAccessToken().then();
   })
-  return integrated ? <p data-testid="todoist-integrated-message">Todoist is integrated</p> : (
-    <LoadingButton data-testid="confirm_button_todoist" loading={loading} onClick={async () => {
+  return integrated ? (
+    <CenteredContainer>
+      <TodoistIcon src={todoistImg} />
+      <h5 data-testid="todoist-integrated-message">Todoist is integrated</h5>
+    </CenteredContainer>
+    )
+    : (
+    <Button data-testid="confirm_button_todoist" loading={loading} onClick={async () => {
       setLoading(true);
       window.location.assign( `https://todoist.com/oauth/authorize?client_id=${process.env.REACT_APP_TODOIST_CLIENT_ID}&scope=data:read_write,data:delete&state=${process.env.REACT_APP_TODOIST_STATE_SECRET}`);
       setLoading(false);
     }} size="large" color="primary" variant="contained" type="submit">
+      <TodoistIcon src={todoistImg} />
       Integrate Todoist
-    </LoadingButton>
+    </Button>
   )
 }
 

@@ -6,6 +6,8 @@ import { Button, Container, Box } from '@mui/material';
 import {Checkbox} from "formik-mui";
 
 import TodoistLoginButton from "../../components/TodoistLoginButton";
+import Grid from "@mui/material/Grid";
+import {LoadingButton} from "@mui/lab";
 
 export type RequestedDayPeriods = ("morning" | "afternoon" | "early_evening" | "late_evening")[];
 
@@ -129,17 +131,23 @@ const DayConfigForm = () => {
         <Box>
           <ErrorMessage name="requested_activity_types" />
         </Box>
-        <Box sx={{
-          my: 1,
-        }}>
-          <Button color="primary" variant="contained" type="submit">
-            Submit
-          </Button>
-        </Box>
+        <Grid
+          container
+          spacing={2}
+          alignItems="center"
+        >
+          <Grid item>
+            <Button color="primary" variant="contained" type="submit">
+              Submit
+            </Button>
+          </Grid>
+          <Grid item>
+            <TodoistLoginButton />
+          </Grid>
+        </Grid>
       </Form>
     )}
     </Formik>
-    <TodoistLoginButton />
     </Container>
 }
 
