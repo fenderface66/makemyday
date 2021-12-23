@@ -58,7 +58,9 @@ const Schedule = () => {
                 });
                 setLoading(false);
                 if (res.status === 201) {
-                  history.push('/complete');
+                  history.push('/complete', {
+                    scheduleType: 'calendar'
+                  });
                 }
               }} size="large" color="primary" variant="contained" type="submit">
                 Confirm as schedule
@@ -75,7 +77,9 @@ const Schedule = () => {
                 });
                 setLoading(false);
                 if (res.status === 201) {
-                  history.push('/complete');
+                  history.push('/complete', {
+                    scheduleType: 'todo'
+                  });
                 }
               }} size="large" color="primary" variant="contained" type="submit">
                 Confirm as to-do list
