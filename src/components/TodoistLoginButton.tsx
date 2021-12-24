@@ -66,7 +66,7 @@ const TodoistLoginButton = () => {
       setLoading(true);
       window.location.assign( `https://todoist.com/oauth/authorize?client_id=${process.env.REACT_APP_TODOIST_CLIENT_ID}&scope=data:read_write,data:delete&state=${process.env.REACT_APP_TODOIST_STATE_SECRET}`);
       setLoading(false);
-    }} size="large" color="primary" variant="contained" type="submit">
+    }} size="large" color="primary" variant="contained">
       <TodoistIcon src={todoistImg} />
       Integrate Todoist
     </Button>
