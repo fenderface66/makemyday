@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { DayPeriod, ActivityType } from "make-my-day-common";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import api from "../../api";
 import {Redirect, useHistory} from 'react-router-dom'
@@ -8,13 +9,9 @@ import {Checkbox} from "formik-mui";
 import TodoistLoginButton from "../../components/TodoistLoginButton";
 import Grid from "@mui/material/Grid";
 
-export type RequestedDayPeriods = ("morning" | "afternoon" | "early_evening" | "late_evening")[];
-
-export type RequestedActivityTypes = ("active" | "social" | "amusement" | "self_improvement" | "outgoing")[]
-
 type Values = {
-  requested_day_periods: RequestedDayPeriods;
-  requested_activity_types: RequestedActivityTypes;
+  requested_day_periods: DayPeriod[];
+  requested_activity_types: ActivityType[];
 }
 
 export enum Status {
