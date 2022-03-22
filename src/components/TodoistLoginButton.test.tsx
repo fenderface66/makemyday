@@ -24,6 +24,7 @@ describe("<TodoistLoginButton />", () => {
   });
   describe("when no user cookie with a Todoist access token is present", () => {
     beforeEach(() => {
+      jest.clearAllMocks();
       apiSpy = jest.spyOn(api, "default");
       apiSpy.mockResolvedValue({
         json: () => ({
@@ -31,10 +32,14 @@ describe("<TodoistLoginButton />", () => {
         }),
       });
     });
-    it("shows a button for the user to integrate with todoist", () => {
-      const { getByTestId } = render(<TodoistLoginButton />);
-      const button = getByTestId("confirm_button_todoist");
-      expect(button).toBeDefined();
+    it("shows a button for the user to integrate with todoist", async () => {
+      act(() => {
+        render(<TodoistLoginButton />);
+      });
+      await waitFor(async () => {
+        const button = screen.getByTestId("confirm_button_todoist");
+        expect(button).toBeDefined();
+      });
     });
     describe("when button is clicked", () => {
       const originalLocation = window.location;
@@ -46,15 +51,17 @@ describe("<TodoistLoginButton />", () => {
           ...originalLocation,
           assign: assignMock,
         } as Location;
+      });
+      it("redirects the user to the todoist oAuth page", async () => {
         act(() => {
           render(<TodoistLoginButton />);
           screen.getByTestId("confirm_button_todoist").click();
         });
-      });
-      it("redirects the user to the todoist oAuth page", () => {
-        expect(assignMock).toHaveBeenCalledWith(
-          `https://todoist.com/oauth/authorize?client_id=${process.env.REACT_APP_TODOIST_CLIENT_ID}&scope=data:read_write,data:delete&state=${process.env.REACT_APP_TODOIST_STATE_SECRET}`
-        );
+        await waitFor(async () => {
+          expect(assignMock).toHaveBeenCalledWith(
+            `https://todoist.com/oauth/authorize?client_id=${process.env.REACT_APP_TODOIST_CLIENT_ID}&scope=data:read_write,data:delete&state=${process.env.REACT_APP_TODOIST_STATE_SECRET}`
+          );
+        });
       });
       afterEach(() => {
         window.location = originalLocation;
@@ -70,9 +77,11 @@ describe("<TodoistLoginButton />", () => {
         }),
       });
     });
-    it("fetches an access token from todoist", () => {
+    it("fetches an access token from todoist", async () => {
       act(() => {
         render(<TodoistLoginButton />);
+      });
+      await waitFor(async () => {
         expect(apiSpy).toHaveBeenCalledWith(
           "https://todoist.com/oauth/access_token",
           {
