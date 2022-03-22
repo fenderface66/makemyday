@@ -8561,6 +8561,11 @@ make-dir@^3.0.0, make-dir@^3.0.2:
   dependencies:
     semver "^6.0.0"
 
+make-my-day-common@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/make-my-day-common/-/make-my-day-common-1.0.4.tgz#4251e91f739ec347511368f6c5b1ffe0047e6ad1"
+  integrity sha512-lfJx8si5K7K87aqm9+lSEKZ2kGd8AN9vHkrorHLN49b2MoiJ9D4cBTdC2sqgPvlB6V9Hz7hKGJHGpZRo/HdjWw==
+
 makeerror@1.0.x:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/makeerror/-/makeerror-1.0.11.tgz#e01a5c9109f2af79660e4e8b9587790184f5a96c"
