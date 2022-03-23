@@ -1,5 +1,5 @@
 FROM node:16
-WORKDIR /Users/robertheygate/make-my-day/src
+WORKDIR /var/app
 COPY package*.json ./
 RUN yarn install
 COPY . .

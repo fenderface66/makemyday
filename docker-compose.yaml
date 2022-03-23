@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   make-my-day:
+    container_name: make-my-day
     build:
       context: .
     networks:
@@ -8,8 +9,10 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - .:/var/app
+      - /var/app/node_modules
+    environment:
+      CHOKIDAR_USEPOLLING: true
     env_file:
       - .env
 volumes:
