@@ -8,6 +8,7 @@ import { Checkbox } from "formik-mui";
 
 import TodoistLoginButton from "../../components/TodoistLoginButton";
 import Grid from "@mui/material/Grid";
+import { DatePickerField } from "../../components/DatepickerField";
 
 type Values = {
   requested_day_periods: DayPeriod[];
@@ -40,6 +41,7 @@ const DayConfigForm = () => {
     <Container>
       <Formik
         initialValues={{
+          schedule_date: new Date().toDateString(),
           requested_day_periods: [],
           requested_activity_types: [],
         }}
@@ -75,7 +77,9 @@ const DayConfigForm = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <h2>When would you like activities to be scheduled?</h2>
+            <h2>Which day would you like your scheduled?</h2>
+            <DatePickerField name="schedule_date" />
+            <h2>When in the day would you like activities to be scheduled?</h2>
             <div role="group" aria-labelledby="checkbox-group">
               <Box>
                 <label>
