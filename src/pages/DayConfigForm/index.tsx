@@ -9,6 +9,7 @@ import { Checkbox } from "formik-mui";
 import TodoistLoginButton from "../../components/TodoistLoginButton";
 import Grid from "@mui/material/Grid";
 import { DatePickerField } from "../../components/DatepickerField";
+import { cpuUsage } from "process";
 
 type Values = {
   requested_day_periods: DayPeriod[];
@@ -58,7 +59,6 @@ const DayConfigForm = () => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          console.log(values);
           const res = await api(
             `${process.env.REACT_APP_API_URL}/schedule/create`,
             {
@@ -86,6 +86,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_day_periods_morning"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_day_periods"
@@ -97,6 +98,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_day_periods_afternoon"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_day_periods"
@@ -108,6 +110,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_day_periods_early_evening"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_day_periods"
@@ -119,6 +122,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_day_periods_late_evening"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_day_periods"
@@ -133,6 +137,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_activity_types_active"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_activity_types"
@@ -144,6 +149,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_activity_types_social"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_activity_types"
@@ -155,6 +161,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_activity_types_amusement"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_activity_types"
@@ -166,6 +173,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_activity_types_self_improvement"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_activity_types"
@@ -177,6 +185,7 @@ const DayConfigForm = () => {
               <Box>
                 <label>
                   <Field
+                    data-testid="requested_activity_types_self_outgoing"
                     type="checkbox"
                     component={Checkbox}
                     name="requested_activity_types"
@@ -198,7 +207,12 @@ const DayConfigForm = () => {
             </Box>
             <Grid container spacing={2} alignItems="center">
               <Grid item>
-                <Button color="primary" variant="contained" type="submit">
+                <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  data-testid="submit_button"
+                >
                   Submit
                 </Button>
               </Grid>
