@@ -21,6 +21,7 @@ type LocationState = {
     | "self_improvement"
     | "outgoing"
   )[];
+  schedule_date: string;
 };
 
 export type ScheduleActivity = {
@@ -150,6 +151,7 @@ const Schedule = () => {
                         location.state.requested_day_periods,
                       requested_activity_types:
                         location.state.requested_activity_types,
+                      schedule_date: location.state.schedule_date,
                     },
                     {
                       method: "POST",

@@ -41,7 +41,7 @@ const DayConfigForm = () => {
     <Container>
       <Formik
         initialValues={{
-          schedule_date: new Date().toDateString(),
+          schedule_date: new Date().toUTCString(),
           requested_day_periods: [],
           requested_activity_types: [],
         }}
@@ -58,10 +58,12 @@ const DayConfigForm = () => {
           return errors;
         }}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
+          console.log(values);
           const res = await api(
             `${process.env.REACT_APP_API_URL}/schedule/create`,
             {
               ...values,
+              schedule_date: new Date(values.schedule_date).toISOString(),
             },
             {
               method: "POST",
