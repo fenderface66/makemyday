@@ -10,14 +10,17 @@ import styled from "styled-components";
 import CenteredContainer from "./CenteredContainer";
 
 const TodoistIcon = styled.img`
-  height: 30px;
+  height: 20px;
   margin-right: 5px;
 `;
 
 const Button = styled(LoadingButton)`
   background-color: #c3362a;
+  padding-top: 6px;
+  padding-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
+  font-size: 0.875rem;
   &:hover {
     background-color: #b1362a;
   }
