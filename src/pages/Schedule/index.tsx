@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -8,6 +8,8 @@ import api from "../../api";
 import useUserCookie from "../../hooks/useUserCookie";
 import Title from "../../components/Title";
 import Card from "../../components/Card";
+import CloseIconButton from "../../components/CloseIconButton";
+import SubTitle from "../../components/SubTitle";
 type LocationState = {
   schedule: ScheduleActivity[];
   requested_day_periods: (
@@ -50,7 +52,7 @@ const Schedule = () => {
   });
   useEffect(() => {
     setSchedule(location.state.schedule);
-  }, [location]);
+  }, [location.state.schedule]);
   return (
     <Grid
       container
@@ -71,12 +73,33 @@ const Schedule = () => {
                 </Title>
                 {schedule.map((scheduleActivity) => (
                   <Box
+                    data-testid={scheduleActivity.name.toLowerCase()}
                     key={scheduleActivity.name}
                     sx={{
                       my: 2,
                     }}
                   >
-                    <h2>{scheduleActivity.name}</h2>
+                    <Box
+                      sx={{
+                        display: "inline-flex",
+                        justifyContent: "space-between",
+                        flexDirection: "row",
+                        alignItems: "spaced-between",
+                        width: "100%",
+                      }}
+                    >
+                      <SubTitle>{scheduleActivity.name}</SubTitle>
+                      <CloseIconButton
+                        data-testid="delete-icon"
+                        onClick={() => {
+                          const newSchedule = schedule.filter(
+                            (scheduleItem) =>
+                              scheduleItem.name !== scheduleActivity.name
+                          );
+                          setSchedule(newSchedule);
+                        }}
+                      />
+                    </Box>
                     <p>
                       {activityTimeFormat.format(
                         new Date(scheduleActivity.startDateTime)

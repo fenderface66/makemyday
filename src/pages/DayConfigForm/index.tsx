@@ -96,7 +96,7 @@ const DayConfigForm = () => {
             {({ isSubmitting }) => (
               <Form>
                 <Card role="group" aria-labelledby="checkbox-group">
-                  <SubTitle>Which day would you like your scheduled?</SubTitle>
+                  <SubTitle>Which day would you like scheduled?</SubTitle>
                   <DatePickerField name="schedule_date" />
                 </Card>
                 <Card role="group" aria-labelledby="checkbox-group">

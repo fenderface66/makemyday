@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Complete from "./pages/Complete";
 import Schedule from "./pages/Schedule";
 import history from "./history";
+import NavigationBar from "./components/NavigationBar";
 
 export type User = {
   accessToken: string;
@@ -18,6 +19,7 @@ function App() {
   return (
     <CookiesProvider>
       <Router history={history}>
+        <NavigationBar />
         <Switch>
           <Route path="/login">
             <LoginForm />
