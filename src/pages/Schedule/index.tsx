@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { LoadingButton } from "@mui/lab";
 import api from "../../api";
 import useUserCookie from "../../hooks/useUserCookie";
-import Title from "../../components/Title";
 import Card from "../../components/Card";
 import CloseIconButton from "../../components/CloseIconButton";
 import SubTitle from "../../components/SubTitle";
@@ -67,10 +67,10 @@ const Schedule = () => {
           <Card>
             {schedule.length ? (
               <>
-                <Title>
+                <Typography variant="h4">
                   Schedule for{" "}
                   {dayTimeFormat.format(new Date(schedule[0].startDateTime))}
-                </Title>
+                </Typography>
                 {schedule.map((scheduleActivity) => (
                   <Box
                     data-testid={scheduleActivity.name.toLowerCase()}
@@ -100,7 +100,7 @@ const Schedule = () => {
                         }}
                       />
                     </Box>
-                    <p>
+                    <Typography paragraph>
                       {activityTimeFormat.format(
                         new Date(scheduleActivity.startDateTime)
                       )}{" "}
@@ -108,7 +108,7 @@ const Schedule = () => {
                       {activityTimeFormat.format(
                         new Date(scheduleActivity.endDateTime)
                       )}
-                    </p>
+                    </Typography>
                   </Box>
                 ))}
                 <Grid container spacing={2}>

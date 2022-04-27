@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { DayPeriod, ActivityType } from "make-my-day-common";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import api from "../../api";
 import { Redirect, useHistory } from "react-router-dom";
-import { Button, Container, Box } from "@mui/material";
+import { Button, Container, Box, Typography } from "@mui/material";
 import { Checkbox } from "formik-mui";
 
 import TodoistLoginButton from "../../components/TodoistLoginButton";
@@ -56,6 +55,11 @@ const DayConfigForm = () => {
             marginTop: "12px",
           }}
         >
+          <Typography variant="h4">Create a schedule</Typography>
+          <Typography paragraph>
+            Use the options below to schedule activities that suit your
+            interests to a day.
+          </Typography>
           <Formik
             initialValues={{
               schedule_date: new Date().toUTCString(),
